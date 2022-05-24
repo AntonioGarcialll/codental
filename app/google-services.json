@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "265303911598",
+    "project_id": "codental-791e3",
+    "storage_bucket": "codental-791e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265303911598:android:9ea137399249851e64513f",
+        "android_client_info": {
+          "package_name": "com.antonio.codental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265303911598-4gormtcs0l10ie2umockt4vpv781gnfe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX6M3eMeiN99IHag_JhY3ZXPzFMhRq5jM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265303911598-4gormtcs0l10ie2umockt4vpv781gnfe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InicioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/redondo_blanco"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="150dp"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btnResgistroPacientes"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:text="Registro Pacientes"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/azulBotonLogin"
+                android:textSize="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btnGastosYEgresos"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:text="Gastos y Egresos"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/azulBotonLogin"
+                android:textSize="20dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btnMisPrecios"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:text="Mis Precios $"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/azulBotonLogin"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
