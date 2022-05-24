@@ -34,6 +34,4 @@ data class Abonos(
     override fun hashCode(): Int {
         return idAbono?.hashCode() ?: 0
     }
-
-
 }
