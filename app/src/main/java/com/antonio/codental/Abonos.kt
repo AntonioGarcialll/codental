@@ -13,6 +13,7 @@ data class Abonos(
     var saldo: Double = 0.0,
     var saldoAnterior: Double = 0.0,
     var firma: String? = null,
+    var hojaClinica: String ?= null,
     var proximaCita: String? = null,
     var horaProximaCita: String?=null,
     @get: Exclude var idAbono: String? = null,

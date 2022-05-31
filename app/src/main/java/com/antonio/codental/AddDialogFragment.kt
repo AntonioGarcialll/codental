@@ -2,6 +2,7 @@ package com.antonio.codental
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,8 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
     private var abonos: Abonos? = null
 
     private var mIdTratamiento: String? = null
+
+    private var fechaActual : String ?= null
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -65,9 +68,9 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
             abonos?.let {
                 positiveButton?.text = "Actualizar"
             }
-            binding.tvCosto.text = (activity as? AbonosInterfazAux)?.obtenerCosto().toString()
-            binding.tvTratamiento.text =
-                (activity as? AbonosInterfazAux)?.obtenerTratamiento() ?: "No existe"
+            binding.tvCosto.setText((activity as? AbonosInterfazAux)?.obtenerCosto().toString())
+            binding.tvTratamiento.setText((activity as? AbonosInterfazAux)?.obtenerTratamiento() ?: "No existe")
+
 
             //Método para el click del botón del segundo calendario 2
             binding.btnFecha2.setOnClickListener {
@@ -77,51 +80,74 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
                 dialogFecha.show(parentFragmentManager, "DatePicker")
             }
 
+            //Método para el clic del reloj
+            binding.btnReloj.setOnClickListener {
+                val currentTime = Calendar.getInstance()
+                val startHour = currentTime.get(Calendar.HOUR_OF_DAY)
+                val startMinute = currentTime.get(Calendar.MINUTE)
+
+                TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener{view, hourOfDay, minute ->
+                    binding.etHoraProxCita.setText("$hourOfDay:$minute")
+                }, startHour, startMinute, false).show()
+            }
+
 
 
             positiveButton?.setOnClickListener {
+                if(binding.tvFecha.text.toString().isEmpty() || binding.etPieza.text.toString().isEmpty() || binding.tvTratamiento.text.toString().isEmpty() ||
+                    binding.tvCosto.text.toString().isEmpty() || binding.etAbono.text.toString().isEmpty() || binding.tvSaldo.text.toString().isEmpty() ||
+                    binding.tvSaldoAnterior.text.toString().isEmpty() || binding.etFirma.text.toString().isEmpty() || binding.etHojaClinica.text.toString().isEmpty() ||
+                    binding.tvFecha2.text.toString().isEmpty() || binding.etHoraProxCita.text.toString().isEmpty())
+                {
+                    Toast.makeText(activity, "Error, no debe dejar campos vacíos.", Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    enableUI(false)
+                    if (abonos == null) {
+                        val abonos = Abonos(
+                            fecha = SimpleDateFormat(
+                                "dd/MM/yyyy - h:mm:ss a",
+                                Locale.getDefault()
+                            ).format(Date()),
+                            pieza = binding.etPieza.text.toString().trim(),
+                            tratamiento = binding.tvTratamiento.text.toString().trim(),
+                            costoTotal = binding.tvCosto.text.toString().toDouble(),
+                            abono = binding.etAbono.text.toString().toDouble(),
+                            saldo = binding.tvSaldo.text.toString().toDouble(),
+                            saldoAnterior = binding.tvSaldoAnterior.text.toString().toDouble(),
+                            firma = binding.etFirma.text.toString().trim(),
+                            hojaClinica = binding.etHojaClinica.text.toString().trim(),
+                            proximaCita = binding.tvFecha2.text.toString().trim(),
+                            horaProximaCita = binding.etHoraProxCita.text.toString().trim(),
+                            timestamp = Date().time
+                        )
+                        save(abonos)
 
-                enableUI(false)
 
-                if (abonos == null) {
-                    val abonos = Abonos(
-                        fecha = SimpleDateFormat(
-                            "dd/MM/yyyy - h:mm:ss a",
-                            Locale.getDefault()
-                        ).format(Date()),
-                        pieza = binding.etPieza.text.toString().trim(),
-                        tratamiento = binding.tvTratamiento.text.toString().trim(),
-                        costoTotal = binding.tvCosto.text.toString().toDouble(),
-                        abono = binding.etAbono.text.toString().toDouble(),
-                        saldo = binding.tvSaldo.text.toString().toDouble(),
-                        saldoAnterior = binding.tvSaldoAnterior.text.toString().toDouble(),
-                        firma = binding.etFirma.text.toString().trim(),
-                        proximaCita = binding.tvFecha2.text.toString().trim(),
-                        horaProximaCita = binding.etHoraProxCita.text.toString().trim(),
-                        timestamp = Date().time
-                    )
-                    save(abonos)
-                } else {
-                    abonos?.apply {
-                        fecha =
-                            SimpleDateFormat("dd/MM/yyyy - h:mm:ss a", Locale.getDefault()).format(
-                                Date()
-                            )
-                        pieza = binding.etPieza.text.toString().trim()
-                        tratamiento = binding.tvTratamiento.text.toString().trim()
-                        costoTotal = binding.tvCosto.text.toString().toDouble()
-                        abono = binding.etAbono.text.toString().toDouble()
-                        saldo = binding.tvSaldo.text.toString().toDouble()
-                        saldoAnterior = binding.tvSaldoAnterior.text.toString().toDouble()
-                        firma = binding.etFirma.text.toString().trim()
-                        proximaCita = binding.tvFecha2.text.toString().trim()
-                        horaProximaCita = binding.etHoraProxCita.text.toString().trim()
-                        timestamp = Date().time
 
-                        update(this)
+                    } else {
+                        abonos?.apply {
+                            fecha =
+                                SimpleDateFormat("dd/MM/yyyy - h:mm:ss a", Locale.getDefault()).format(
+                                    Date()
+                                )
+                            pieza = binding.etPieza.text.toString().trim()
+                            tratamiento = binding.tvTratamiento.text.toString().trim()
+                            costoTotal = binding.tvCosto.text.toString().toDouble()
+                            abono = binding.etAbono.text.toString().toDouble()
+                            saldo = binding.tvSaldo.text.toString().toDouble()
+                            saldoAnterior = binding.tvSaldoAnterior.text.toString().toDouble()
+                            firma = binding.etFirma.text.toString().trim()
+                            hojaClinica = binding.etHojaClinica.text.toString().trim()
+                            proximaCita = binding.tvFecha2.text.toString().trim()
+                            horaProximaCita = binding.etHoraProxCita.text.toString().trim()
+                            timestamp = Date().time
+
+                            update(this)
+                        }
                     }
                 }
-
             }
 
             negativeButton?.setOnClickListener {
@@ -131,28 +157,40 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
     }
 
     private fun initAbonos() {
+        //Cuando se abra el dialog para agregar un nuevo abono se va a poner la fecha actual
+        //automáticamente
+        fechaActual = SimpleDateFormat(
+            "dd/MM/yyyy - h:mm:ss a",
+            Locale.getDefault()
+        ).format(Date())
+        binding.tvFecha.setText(fechaActual)
+
+        //Pongo en ceros el saldo anterior, cambiará hasta que se ingrese un abono
+        binding.tvSaldoAnterior.setText("0.0")
+
         mIdTratamiento = (activity as? AbonosInterfazAux)?.obtenerIdTratamiento()
         abonos = (activity as? AbonosInterfazAux)?.obtenerAbonoSeleccionado()
         if (abonos == null) { //Presioné el botón agregar
             foco(true)
             if ((activity as AbonosInterfazAux).hayAbonos()) { //ya hay abonos
-                binding.tvSaldo.text = (activity as? AbonosInterfazAux)?.obtenerSaldo().toString()
+                binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerSaldo().toString())
 
             } else { //No hay ningun abono en la lista
-                binding.tvSaldo.text = (activity as? AbonosInterfazAux)?.obtenerCosto().toString()
+                binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerCosto().toString())
             }
         } else {
             foco(false)
             dialog?.setTitle("Actualizar Abono")
-            binding.tvFecha.text = abonos?.fecha
+            binding.tvFecha.setText(abonos?.fecha)
             binding.etPieza.setText(abonos?.pieza)
-            binding.tvTratamiento.text = abonos?.tratamiento
+            binding.tvTratamiento.setText(abonos?.tratamiento)
             //binding.tvCosto.text = (activity as? AbonosInterfazAux)?.obtenerCosto().toString()
             binding.etAbono.setText(abonos?.abono.toString())
-            binding.tvSaldo.text = abonos?.saldo.toString()
-            binding.tvSaldoAnterior.text = abonos?.saldoAnterior.toString()
+            binding.tvSaldo.setText(abonos?.saldo.toString())
+            binding.tvSaldoAnterior.setText(abonos?.saldoAnterior.toString())
             binding.etFirma.setText(abonos?.firma)
-            binding.tvFecha2.text = abonos?.proximaCita
+            binding.etHojaClinica.setText(abonos?.hojaClinica.toString())
+            binding.tvFecha2.setText(abonos?.proximaCita)
             binding.etHoraProxCita.setText(abonos?.horaProximaCita)
         }
     }
@@ -161,12 +199,12 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
         if (opcion) {
             binding.etAbono.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
                 if (b) {
-                    binding.tvSaldo.text =
-                        (activity as? AbonosInterfazAux)?.obtenerSaldo().toString()
+                    binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerSaldo().toString())
+
                 } else {
                     if (binding.etAbono.text.isNullOrBlank()) {
-                        binding.tvSaldo.text =
-                            (activity as? AbonosInterfazAux)?.obtenerSaldo().toString()
+                        binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerSaldo().toString())
+
                     } else {
                         if (binding.etAbono.text.toString()
                                 .toDouble() > binding.tvSaldo.text.toString().toDouble()
@@ -185,30 +223,30 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
                         val abono = binding.etAbono.text.toString().toDouble()
                         val saldo = binding.tvSaldo.text.toString().toDouble()
                         val resultado = saldo - abono
-                        binding.tvSaldo.text = resultado.toString()
+                        binding.tvSaldo.setText(resultado.toString())
                     }
                 }
             }
         } else {
             binding.etAbono.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
                 if (b) {
-                    binding.tvSaldo.text =
-                        (activity as? AbonosInterfazAux)?.obtenerSaldo().toString()
+                    binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerSaldo().toString())
+
                 } else {
                     if (binding.etAbono.text.isNullOrBlank()) {
-                        binding.tvSaldo.text =
-                            (activity as? AbonosInterfazAux)?.obtenerSaldo().toString()
+                        binding.tvSaldo.setText((activity as? AbonosInterfazAux)?.obtenerSaldo().toString())
+
                     } else {
                         if (binding.etAbono.text.toString()
                                 .toDouble() > binding.tvSaldoAnterior.text.toString().toDouble()
                         ) {
 
-                            if (binding.tvSaldo.text == "0.0") {
+                            if (binding.tvSaldo.text.toString() == "0.0") {
                                 val abono = binding.etAbono.text.toString().toDouble()
                                 val saldoAnterior =
                                     binding.tvSaldoAnterior.text.toString().toDouble()
                                 val resultado = saldoAnterior - abono
-                                binding.tvSaldo.text = resultado.toString()
+                                binding.tvSaldo.setText(resultado.toString())
                             } else {
                                 binding.etAbono.setText("0.0")// se limpia el campo del abono
                                 Toast.makeText(
@@ -224,7 +262,7 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
                         val abono = binding.etAbono.text.toString().toDouble()
                         val saldoAnterior = binding.tvSaldoAnterior.text.toString().toDouble()
                         val resultado = saldoAnterior - abono
-                        binding.tvSaldo.text = resultado.toString()
+                        binding.tvSaldo.setText(resultado.toString())
                     }
                 }
             }
@@ -258,7 +296,7 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
                     .document(id)
                     .set(abonos)
                     .addOnSuccessListener {
-                        Toast.makeText(activity, "Abonoso actualizado.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Abono Actualizado.", Toast.LENGTH_SHORT).show()
                         dismiss()
                     }
                     .addOnFailureListener {
@@ -282,6 +320,7 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
             tvSaldo.isEnabled = enable
             tvSaldoAnterior.isEnabled = enable
             etFirma.isEnabled = enable
+            etHojaClinica.isEnabled = enable
             btnFecha2.isEnabled = enable
             etHoraProxCita.isEnabled = enable
 
@@ -294,34 +333,10 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
         _binding = null
     }
 
-    /*//Función para mostrar la fecha en el textView de fecha
-    private fun mostrarFecha1(year: Int, month: Int, day: Int) {
-        binding.tvFecha.text = "$day/$month/$year"
-    }*/
-
     //Función para mostrar la fecha en el textView de fecha
     private fun mostrarFecha2(year: Int, month: Int, day: Int) {
-        binding.tvFecha2.text = "$day/$month/$year"
+        binding.tvFecha2.setText("$day/$month/$year")
     }
-
-    /*//Datos para el calendario 1
-    class DatePickerFragment1(val listener: (year: Int, month: Int, day: Int) -> Unit) :
-        DialogFragment(), DatePickerDialog.OnDateSetListener {
-
-        @RequiresApi(Build.VERSION_CODES.N)
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-            return DatePickerDialog(requireActivity(), this, year, month, day)
-        }
-
-        //Los valores finales que tendrán las variables de la fecha
-        override fun onDateSet(p0: DatePicker?, year: Int, month: Int, day: Int) {
-            listener(year, month + 1, day)
-        }
-    }*/
 
     //Datos para el calendario 2
     class DatePickerFragment2(val listener: (year: Int, month: Int, day: Int) -> Unit) :

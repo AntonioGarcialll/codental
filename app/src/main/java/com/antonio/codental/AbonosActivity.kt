@@ -122,6 +122,7 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
             .setMessage("¿Está seguro de eliminar este abono?")
             .setPositiveButton("Aceptar") { _, _ ->
                 abono.idAbono?.let { id ->
+                    Toast.makeText(this, "id abono es: $id", Toast.LENGTH_SHORT).show()
                     val db = Firebase.firestore
                     val productRef = db.collection("abonos")
                     productRef.document(id)
