@@ -20,7 +20,7 @@
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_inicio.xml" value="0.22" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_main.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_abono.xml" value="0.25" />
-        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_gasto_yegreso.xml" value="0.22" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_gasto_yegreso.xml" value="0.33" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_paciente.xml" value="0.22" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_precio.xml" value="0.22" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_tratamiento.xml" value="0.2930253623188406" />
@@ -31,10 +31,11 @@
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_tratamientos.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/dialog_fragment_abonos.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_abonos.xml" value="0.2930253623188406" />
-        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_gastos_y_egresos.xml" value="0.2930253623188406" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_gastos_y_egresos.xml" value="0.25" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_paciente.xml" value="0.33" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_precios.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_tratamientos.xml" value="0.2930253623188406" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/gasto_egreso_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/lupa_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/paciente_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/tratamiento_menu.xml" value="0.33489583333333334" />

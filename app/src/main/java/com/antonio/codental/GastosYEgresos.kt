@@ -6,6 +6,5 @@ data class GastosYEgresos(var fecha:String?=null,
                           var gastoEgreso:String?=null,
                           var costo:String?=null,
                           var estatus:String?=null,
-                          var totalActual:String?=null,
                           var idGastoEgreso:String?=null) : Serializable {
 }

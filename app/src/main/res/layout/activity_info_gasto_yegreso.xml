@@ -107,35 +107,6 @@
             android:textStyle="italic"
             android:textAlignment="center"/>
 
-        <TextView
-            android:id="@+id/tvTotalActualMsj"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Actual"
-            android:textSize="20dp"
-            android:textColor="@color/gris"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/tvTotalActual"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Total Actual"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textStyle="italic"
-            android:textAlignment="center"/>
-
-
-
-
-
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
