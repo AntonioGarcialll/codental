@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.antonio.codental.databinding.ActivityTratamientosBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,6 +36,9 @@ class TratamientosActivity : AppCompatActivity(), TratamientosInterfaz {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
         title = "Tratamientos"
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Obtengo el id del paciente al cual le voy a mostrar sus tratamientos
         val objIntent: Intent = intent
         var miIdPaciente = objIntent.getStringExtra("miIdPaciente")
@@ -42,10 +47,33 @@ class TratamientosActivity : AppCompatActivity(), TratamientosInterfaz {
         binding = ActivityTratamientosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Cosas para dividir los items en pantalla con linea
+        val manager = LinearLayoutManager(this)
+        val divider = DividerItemDecoration(this, manager.orientation)
         adapter = TratamientosAdapter(this, getTratamientos(miIdPaciente!!))
         binding.lista.layoutManager = LinearLayoutManager(this)
         binding.lista.adapter = adapter
         adapter.notifyDataSetChanged()
+        binding.lista.apply {
+            setHasFixedSize(true)
+            layoutManager = manager
+            adapter = this.adapter
+            addItemDecoration(divider)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    when {
+                        dy < 0 -> binding.fabAgregar.show()
+                        dy > 0 -> binding.fabAgregar.hide()
+                    }
+                }
+            })
+        }
+
+        /*adapter = TratamientosAdapter(this, getTratamientos(miIdPaciente!!))
+        binding.lista.layoutManager = LinearLayoutManager(this)
+        binding.lista.adapter = adapter
+        adapter.notifyDataSetChanged()*/
 
 
         //Listener para el floatingActionButton de agregar
@@ -63,6 +91,7 @@ class TratamientosActivity : AppCompatActivity(), TratamientosInterfaz {
         val intent = Intent(this, InfoTratamientoActivity::class.java)
         intent.putExtra("tratamientoEnviado", tratamiento)
         startActivity(intent)
+        finish()
     }
 
     fun getTratamientos(idPaciente : String): MutableList<Tratamiento> {

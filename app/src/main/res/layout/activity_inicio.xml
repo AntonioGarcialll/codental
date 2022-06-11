@@ -27,7 +27,7 @@
                 android:id="@+id/btnResgistroPacientes"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
-                android:text="Registro Pacientes"
+                android:text="PACIENTES"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/azulBotonLogin"
                 android:textSize="20dp"
@@ -47,7 +47,7 @@
                 android:id="@+id/btnMisPrecios"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
-                android:text="Mis Precios $"
+                android:text="LISTA DE PRECIOS"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/azulBotonLogin"
                 android:textSize="20dp" />

@@ -30,6 +30,9 @@ class NuevoPacienteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_nuevo_paciente)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Obtengo los datos del paciente que me mandan a través del intent extra
         val objIntent: Intent = intent
         var fechaObtenido = objIntent.getStringExtra("tvFecha")
@@ -49,6 +52,7 @@ class NuevoPacienteActivity : AppCompatActivity() {
         //etCosto = findViewById(R.id.etCosto)
         btnFecha = findViewById(R.id.btnFecha)
         btnGuardar = findViewById(R.id.btnGuardar)
+        etDoctor.setText("Dr. Jairo")
 
         if (actualizarObtenido == "actualizame") {
             supportActionBar!!.setTitle("Editar Paciente")
@@ -59,6 +63,7 @@ class NuevoPacienteActivity : AppCompatActivity() {
             //etTratamiento.setText(tratamientoObtenido)
             //etCosto.setText(costoObtenido)
         } else {
+
             supportActionBar!!.setTitle("Agregar Paciente")
         }
 

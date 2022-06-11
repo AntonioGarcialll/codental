@@ -113,64 +113,27 @@
                 android:textSize="15dp"
                 android:background="@drawable/redondo"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvTextoCrearCuenta"
+                android:layout_width="168dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="¿No tiene una cuenta? ¡Llene los campos necesarios y cree su cuenta ahora!"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:layout_gravity="center"/>
 
-                <TextView
-                    android:id="@+id/tvTextoCrearCuenta"
-                    android:layout_width="168dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="¿No tiene una cuenta? ¡Llene los campos necesarios y cree su cuenta ahora!"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/tvTextoIniciarSesion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="¿Ya tiene una cuenta? ¡Inicie sesión ahora!"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/btnCrearCuenta"
-                    android:layout_width="158dp"
-                    android:layout_height="56dp"
-                    android:layout_marginRight="30dp"
-                    android:backgroundTint="@color/azulBotonLogin"
-                    android:text="Crear cuenta" />
-
-                <Button
-                    android:id="@+id/btnIniciarSesion"
-                    android:layout_width="158dp"
-                    android:layout_height="56dp"
-                    android:backgroundTint="@color/verdeBotonLogin"
-                    android:text="Iniciar Sesión"
-                    android:layout_marginBottom="20dp"/>
-            </LinearLayout>
-
+            <Button
+                android:id="@+id/btnCrearCuenta"
+                android:layout_width="168dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/azulBotonLogin"
+                android:text="Crear cuenta"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 

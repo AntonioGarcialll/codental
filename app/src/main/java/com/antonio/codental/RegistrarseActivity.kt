@@ -13,7 +13,6 @@ import android.widget.Toast
 class RegistrarseActivity : AppCompatActivity() {
 
     //Se declaran los botones
-    lateinit var btnIniciarSesion : Button
     lateinit var btnCrearCuenta : Button
     lateinit var nombre : EditText
     lateinit var correo : EditText
@@ -24,9 +23,9 @@ class RegistrarseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registrarse)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
         title = "CO. Dental"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Se inicializan los botones y los inputs
-        btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
         btnCrearCuenta = findViewById(R.id.btnCrearCuenta)
         nombre = findViewById(R.id.etNombre)
         correo = findViewById(R.id.etCorreo)
@@ -43,13 +42,5 @@ class RegistrarseActivity : AppCompatActivity() {
                 Toast.makeText(this, "Calis. Cuenta creada con éxito.", Toast.LENGTH_SHORT).show()
             }
         }
-
-        //Función para cuando se le de clic al boton de "Iniciar Sesión" que abre la actividad del login
-        btnIniciarSesion.setOnClickListener{
-            val intent = Intent(this,IniciarSesionActivity::class.java)
-            startActivity(intent)
-
-        }
-
     }
 }

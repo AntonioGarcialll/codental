@@ -24,8 +24,8 @@ class InicioActivity : AppCompatActivity() {
 
         //Recibo el nombre del Doctor de la activity de iniciar sesión
         val nombreDoctor : String? = objIntent.getStringExtra("nombreDoctor") // ya tengo el nombre del doctor
-        title = "Bienvenido Dr. "+nombreDoctor // cambio el nombre del action bar con el mensaje de bienvenida.
-
+        //title = "Bienvenido Dr. "+nombreDoctor // cambio el nombre del action bar con el mensaje de bienvenida.
+        title = "Bienvenido Dr. Jairo"
 
         //Enlazo botón de Registro Pacientes
         btnResgistroPacientes = findViewById(R.id.btnResgistroPacientes)

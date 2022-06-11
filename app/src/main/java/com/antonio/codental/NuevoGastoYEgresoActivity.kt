@@ -23,12 +23,14 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
     lateinit var costo: EditText
     lateinit var estatus: EditText
     lateinit var btnGuardar: Button
-    val totalActual: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_gasto_yegreso)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
+
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Obtengo los datos del gastoEgreso que me mandan
         val objIntent: Intent = intent

@@ -53,6 +53,9 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Cosas de binding
         binding = ActivityAbonosBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -243,7 +246,7 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
     override fun obtenerUltimoActualizar(): Boolean? = ultimoActualizar
 
     private fun configFirestoreRealtime() {
-        Toast.makeText(this, "idtratamiento = $idTratamiento", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "idtratamiento = $idTratamiento", Toast.LENGTH_SHORT).show()
         idTratamiento?.let {
             val db = Firebase.firestore
             firestoreListener = db.collection("tratamientos").document(it).collection("abonos")

@@ -55,6 +55,9 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
         title = "Mis Pacientes"
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Inicializa array para lupa
         tempArrayList = arrayListOf<Paciente>()
 

@@ -87,14 +87,38 @@
                 android:textSize="15dp"
                 android:background="@drawable/redondo"/>
 
-            <Button
-                android:id="@+id/btnIngresar"
-                android:layout_width="168dp"
-                android:layout_height="56dp"
-                android:backgroundTint="@color/verdeBotonLogin"
-                android:text="Ingresar"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnIngresar"
+                    android:layout_width="168dp"
+                    android:layout_height="56dp"
+                    android:backgroundTint="@color/verdeBotonLogin"
+                    android:text="Ingresar"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <Button
+                    android:id="@+id/btnCrearCuenta"
+                    android:layout_width="168dp"
+                    android:layout_height="56dp"
+                    android:backgroundTint="@color/azulBotonLogin"
+                    android:text="Crear Cuenta"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 

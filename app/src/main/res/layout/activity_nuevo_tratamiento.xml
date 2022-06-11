@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginLeft="10dp"
@@ -22,43 +22,56 @@
                 android:id="@+id/btnFecha"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_calendar_today_24"/>
+                android:background="@drawable/ic_baseline_calendar_today_24"
+                android:layout_gravity="center_vertical"/>
 
-            <TextView
-                android:id="@+id/tvFecha"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_vertical"
-                android:hint="DD/MM/AAAA"
-                android:textSize="20dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Fecha"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:enabled="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/etNombreTratamiento"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:layout_margin="10dp"
             android:hint="Tratamiento"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            app:endIconMode="clear_text">
 
-        <EditText
-            android:id="@+id/etCosto"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombreTratamiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
+            android:layout_margin="10dp"
             android:hint="Costo"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCosto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgTratamiento"
@@ -68,7 +81,8 @@
             android:background="?attr/selectableItemBackground"
             android:layout_gravity="center"
             app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
-            app:strokeWidth="1dp"/>
+            app:strokeWidth="1dp"
+            android:layout_margin="10dp"/>
 
         <ProgressBar
             android:id="@+id/pb_brand"

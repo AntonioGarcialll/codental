@@ -14,6 +14,8 @@ class IniciarSesionActivity : AppCompatActivity() {
     lateinit var btnIngresar : Button
     lateinit var correo : EditText
     lateinit var contrasena : EditText
+    lateinit var btnCrearCuenta : Button
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,7 @@ class IniciarSesionActivity : AppCompatActivity() {
         btnIngresar = findViewById(R.id.btnIngresar)
         correo = findViewById(R.id.etCorreoIniciarSesion) //= "jairo@gmail.com"
         contrasena = findViewById(R.id.etContrasenaIniciarSesion) //= "12345"
+        btnCrearCuenta = findViewById(R.id.btnCrearCuenta)
 
         //Función para cuando se le de clic al boton de "Ingresar" evaluar que los campos no estén vacíos
         btnIngresar.setOnClickListener{
@@ -61,6 +64,12 @@ class IniciarSesionActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error, datos no encontrados en la base de datos", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        //Funcion para el clic del boton crearCuenta y abra la pantalla para crearla.
+        btnCrearCuenta.setOnClickListener {
+            val intent = Intent(this,RegistrarseActivity::class.java)
+            startActivity(intent)
         }
 
     }

@@ -29,6 +29,9 @@ class InfoGastoYEgresoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Cosas de binding
         binding = ActivityInfoGastoYegresoBinding.inflate(layoutInflater)
         setContentView(binding.root)

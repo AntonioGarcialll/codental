@@ -93,7 +93,7 @@ class NuevoTratamientoActivity : AppCompatActivity() {
 
         binding.btnGuardar.setOnClickListener()
         {
-            if(binding.tvFecha.text.isEmpty() || binding.etNombreTratamiento.text.isEmpty() || binding.etCosto.text.isEmpty() || imageResult.toString().equals(null))
+            if(binding.tvFecha.text!!.isEmpty() || binding.etNombreTratamiento.text!!.isEmpty() || binding.etCosto.text!!.isEmpty() || imageResult.toString().equals(null))
             {
                 Toast.makeText(this, "Error, no debe dejar campos vacíos.", Toast.LENGTH_SHORT).show()
             }
@@ -122,7 +122,7 @@ class NuevoTratamientoActivity : AppCompatActivity() {
         val db = Firebase.firestore
         db.collection("tratamientos").document(documentId).set(tratamiento).addOnSuccessListener {
             finish()
-            Toast.makeText(this, "Se agregó correctamente el tratamiento. IDPaciente = ${tratamiento.idPaciente.toString()}", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Tratamiento Agregado Correctamente", Toast.LENGTH_SHORT)
                 .show()
         }.addOnFailureListener {
             enableUI(true)

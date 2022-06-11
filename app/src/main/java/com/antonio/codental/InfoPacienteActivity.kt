@@ -34,6 +34,9 @@ class InfoPacienteActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
         title = "Paciente"
 
+        //Flecha para volver a atrás
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //Inicializamos la variable para la base de datos
         db = FirebaseFirestore.getInstance()
 
@@ -119,6 +122,7 @@ class InfoPacienteActivity : AppCompatActivity() {
                 val intent = Intent(this,TratamientosActivity::class.java)
                 intent.putExtra("miIdPaciente",miIdPaciente)
                 startActivity(intent)
+                finish()
             }
 
 
