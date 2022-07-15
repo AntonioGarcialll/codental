@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="blue500">#2196f3</color>
+    <color name="blue500light">#6ec6ff</color>
+    <color name="blue500dark">#0069c0</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="azulCajaTextoLogin">#e3f0ff</color>
-    <color name="azulBotonLogin">#218eff</color>
-    <color name="verdeBotonLogin">#03bc57</color>
-    <color name="gris">#A6A6A6</color>
-    <color name="azulBarra">#218eff</color>
     <color name="rojo">#B81300</color>
-
-
-
-
-
-
-
 </resources>

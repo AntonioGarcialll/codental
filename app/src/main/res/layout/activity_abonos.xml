@@ -12,36 +12,32 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/azulBarra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTratamientoPagado"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvSaldoPendiente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Tratamiento Pagado"
-        android:textColor="@color/verdeBotonLogin"
+        android:text="Tratamiento Activo"
         android:textSize="20dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+        app:layout_constraintBottom_toTopOf="@id/tvSaldoPendiente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvSaldoPendiente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTratamientoPagado"
-        app:layout_constraintBottom_toTopOf="@id/lista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Saldo pendiente:"
-        android:textColor="@color/verdeBotonLogin"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/lista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTratamientoPagado" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,9 +45,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:cacheColorHint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSaldoPendiente"
         tools:listitem="@layout/item_abonos" />
 </androidx.constraintlayout.widget.ConstraintLayout>

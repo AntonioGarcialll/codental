@@ -38,7 +38,7 @@ class AbonosAdapter(
     fun add(abonos: Abonos) {
 
         if (!listaAbonos.contains(abonos)) {
-            listaAbonos.add(0,abonos)
+            listaAbonos.add(0, abonos)
             //listaAbonos.sortByDescending { it.timestamp }
             notifyItemInserted(0)
             calcTotal(abonos)

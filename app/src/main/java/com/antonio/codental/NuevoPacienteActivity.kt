@@ -3,14 +3,13 @@ package com.antonio.codental
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -28,16 +27,12 @@ class NuevoPacienteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_paciente)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
 
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Obtengo los datos del paciente que me mandan a través del intent extra
         val objIntent: Intent = intent
         var fechaObtenido = objIntent.getStringExtra("tvFecha")
         var pacienteObtenido = objIntent.getStringExtra("tvPaciente")
-        var doctorObtenido = objIntent.getStringExtra("tvDoctor")
         //var tratamientoObtenido = objIntent.getStringExtra("tvTratamiento")
         //var costoObtenido = objIntent.getStringExtra("tvCosto")
         //var fotosObtenido = objIntent.getStringExtra("tvFotos")
@@ -52,19 +47,19 @@ class NuevoPacienteActivity : AppCompatActivity() {
         //etCosto = findViewById(R.id.etCosto)
         btnFecha = findViewById(R.id.btnFecha)
         btnGuardar = findViewById(R.id.btnGuardar)
-        etDoctor.setText("Dr. Jairo")
+        FirebaseAuth.getInstance().currentUser?.let { etDoctor.setText(it.displayName) }
+
 
         if (actualizarObtenido == "actualizame") {
-            supportActionBar!!.setTitle("Editar Paciente")
+            supportActionBar!!.title = "Editar Paciente"
             //Asigna los valores a las cajas de texto para que puedan ser modificadas
-            tvFecha.setText(fechaObtenido)
+            tvFecha.text = fechaObtenido
             etPaciente.setText(pacienteObtenido)
-            etDoctor.setText(doctorObtenido)
             //etTratamiento.setText(tratamientoObtenido)
             //etCosto.setText(costoObtenido)
         } else {
 
-            supportActionBar!!.setTitle("Agregar Paciente")
+            supportActionBar!!.title = "Agregar Paciente"
         }
 
 

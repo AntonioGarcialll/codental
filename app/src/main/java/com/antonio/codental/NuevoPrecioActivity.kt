@@ -1,8 +1,6 @@
 package com.antonio.codental
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -21,10 +19,7 @@ class NuevoPrecioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_precio)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
 
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Obtengo los datos del precio que me mandan
         val objIntent: Intent = intent

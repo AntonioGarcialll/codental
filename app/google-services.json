@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "265303911598-ig6lq68r1h6n6vishtm9mmu9f6stu3ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.antonio.codental",
+            "certificate_hash": "c3600ed48187afc59d4933f2672d579165d9615f"
+          }
+        },
+        {
           "client_id": "265303911598-4gormtcs0l10ie2umockt4vpv781gnfe.apps.googleusercontent.com",
           "client_type": 3
         }

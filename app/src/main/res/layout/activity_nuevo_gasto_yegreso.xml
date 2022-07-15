@@ -22,8 +22,8 @@
                 android:id="@+id/btnFecha"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_calendar_today_24"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_baseline_calendar_today_24" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -37,8 +37,8 @@
                     android:id="@+id/tvFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -91,9 +91,8 @@
             android:id="@+id/btnGuardar"
             android:layout_width="158dp"
             android:layout_height="56dp"
-            android:text="Guardar"
-            android:backgroundTint="@color/azulBotonLogin"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="Guardar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,16 +3,12 @@ package com.antonio.codental
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -33,14 +29,12 @@ class NuevoAbonoActivity : AppCompatActivity() {
     lateinit var etHoraProxCita: EditText
     lateinit var btnGuardar: Button
     var db = Firebase.firestore
-    public var saldo : String?=null
-    public var saldoFinal : String?=null
+    var saldo: String? = null
+    var saldoFinal: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_abono)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
-        supportActionBar!!.setTitle("Nuevo Abono de Paciente")
 
         //Enlazamos las variables
         btnFecha = findViewById(R.id.btnFecha)
@@ -94,8 +88,7 @@ class NuevoAbonoActivity : AppCompatActivity() {
             } else {
                 //Se guarda un nuevo abono
 
-                if(estado == "vacio")
-                {
+                if (estado == "vacio") {
 
                     //Se evalúa si es el primer abono, si es así, se hace la resta del costo del tratamiento menos el abono.
                     saldo = ((etCosto.text.toString().toInt()) - (etAbono.text.toString()
@@ -103,9 +96,7 @@ class NuevoAbonoActivity : AppCompatActivity() {
                     saldoFinal = saldo
 
                     //primerSaldo(saldoFinal.toString(),idTratamiento.toString())
-                }
-                else
-                {
+                } else {
                     //Se evalúa si ya no es el primer abono, si es así, se hace la resta del saldo actual menos el abono.
                     saldo = ((etSaldo.text.toString().toInt()) - (etAbono.text.toString()
                         .toInt())).toString().trim()

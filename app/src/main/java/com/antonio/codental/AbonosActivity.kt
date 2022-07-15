@@ -1,10 +1,7 @@
 package com.antonio.codental
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -53,9 +50,6 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         //Cosas de binding
         binding = ActivityAbonosBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -66,8 +60,6 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
 
         tratamiento = objIntent.getStringExtra("tratamiento")
 
-
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
         title = "Abonos de $tratamiento"
         costoTratamiento = objIntent.getDoubleExtra("costo", 0.0)
         binding.tvSaldoPendiente.text = costoTratamiento.toString()
@@ -150,13 +142,17 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
     override fun mostrarSaldo(sd: Double) {
         binding.tvSaldoPendiente.text = sd.toString()
         if (sd == 0.0) {
-            binding.tvTratamientoPagado.visibility = View.VISIBLE
-            binding.fabAgregar.isEnabled = false //ya no se pueden agregar nuevos abonos
-        }
-        else
-        {
-            binding.tvTratamientoPagado.visibility = View.GONE
-            binding.fabAgregar.isEnabled = true //ya no se pueden agregar nuevos abonos
+            binding.tvTratamientoPagado.text = "Tratamiento Pagado"
+
+            //Si se va a poder seguir agregando info de citas aunque ya esté pagado por completo
+            //el tratamiento
+            //binding.fabAgregar.isEnabled = false //ya no se pueden agregar nuevos abonos
+        } else {
+            //Si el tratamiento NO está pagado totalmente, debe decir "Tratamiento Activo"
+            binding.tvTratamientoPagado.text = "Tratamiento Activo"
+
+            //binding.tvTratamientoPagado.visibility = View.GONE
+            binding.fabAgregar.isEnabled = true
         }
     }
 

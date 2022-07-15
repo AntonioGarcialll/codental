@@ -1,60 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InicioActivity">
+    android:background="@drawable/fondo"
+    android:visibility="gone"
+    tools:visibility="visible">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/fondo"
-        android:orientation="vertical">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
-        <LinearLayout
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineMedio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <ProgressBar
+        android:id="@+id/pb_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guideLineMedio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_wait_a_moment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wait_a_moment"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineMedio"
+        tools:visibility="visible" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_max"
+        app:cardCornerRadius="@dimen/margin_max"
+        app:cardElevation="@dimen/margin_min"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineTop">
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/redondo_blanco"
-            android:layout_marginTop="150dp"
-            android:layout_marginBottom="150dp"
-            android:gravity="center_vertical">
+            android:fillViewport="true">
 
-            <Button
-                android:id="@+id/btnResgistroPacientes"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:text="PACIENTES"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/azulBotonLogin"
-                android:textSize="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <Button
-                android:id="@+id/btnGastosYEgresos"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:text="Gastos y Egresos"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/azulBotonLogin"
-                android:textSize="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <Button
-                android:id="@+id/btnMisPrecios"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:text="LISTA DE PRECIOS"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/azulBotonLogin"
-                android:textSize="20dp" />
-
-        </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/margin_default">
 
 
-    </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_Pacientes"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:text="PACIENTES"
+                    android:textAlignment="center"
+                    app:cornerRadius="@dimen/margin_min"
+                    app:layout_constraintBottom_toTopOf="@id/btn_GastosEgresos"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_GastosEgresos"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:text="GASTOS Y EGRESOS"
+                    android:textAlignment="center"
+                    app:cornerRadius="@dimen/margin_min"
+                    app:layout_constraintBottom_toTopOf="@id/btn_Precios"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_Pacientes" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_Precios"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height"
+                    android:text="LISTA DE PRECIOS"
+                    android:textAlignment="center"
+                    app:cornerRadius="@dimen/margin_min"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_GastosEgresos" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

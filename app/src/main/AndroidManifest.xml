@@ -12,81 +12,81 @@
         android:theme="@style/Theme.Codental">
         <activity
             android:name=".InfoPrecioActivity"
-            android:exported="false"
-            android:parentActivityName=".PreciosActivity"/>
+            android:exported="true"
+            android:label="Servicio Y Precio"
+            android:parentActivityName=".PreciosActivity" />
         <activity
             android:name=".InfoTratamientoActivity"
-            android:exported="false"
-            android:parentActivityName=".TratamientosActivity"/>
+            android:exported="true"
+            android:parentActivityName=".TratamientosActivity" />
         <activity
             android:name=".NuevoTratamientoActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:parentActivityName=".PacientesActivity" />
         <activity
             android:name=".TratamientosActivity"
-            android:exported="false"
-            android:parentActivityName=".InfoPacienteActivity"/>
+            android:exported="true"
+            android:label="Tratamientos"
+            android:parentActivityName=".InfoPacienteActivity" />
         <activity
             android:name=".NuevoAbonoActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="Nuevo Abono de Paciente"
+            android:parentActivityName=".AbonosActivity" />
         <activity
             android:name=".AbonosActivity"
-            android:exported="false"
-            android:parentActivityName=".InfoTratamientoActivity"/>
+            android:exported="true"
+            android:parentActivityName=".InfoTratamientoActivity" />
         <activity
             android:name=".NuevoPrecioActivity"
-            android:exported="false"
-            android:parentActivityName=".PreciosActivity"/>
+            android:exported="true"
+            android:parentActivityName=".PreciosActivity" />
         <activity
             android:name=".PreciosActivity"
-            android:exported="false"
-            android:parentActivityName=".InicioActivity"/>
+            android:exported="true"
+            android:label="Lista de Precios"
+            android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InfoGastoYEgresoActivity"
-            android:exported="false"
-            android:parentActivityName=".GastosYEgresosActivity"/>
+            android:exported="true"
+            android:label="Gasto/Egreso"
+            android:parentActivityName=".GastosYEgresosActivity" />
         <activity
             android:name=".NuevoGastoYEgresoActivity"
-            android:exported="false"
-            android:parentActivityName=".GastosYEgresosActivity"/>
+            android:exported="true"
+            android:parentActivityName=".GastosYEgresosActivity" />
         <activity
             android:name=".GastosYEgresosActivity"
-            android:exported="false"
-            android:parentActivityName=".InicioActivity"/>
+            android:exported="true"
+            android:label="Gastos y Egresos"
+            android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InfoPacienteActivity"
-            android:exported="false"
-            android:parentActivityName=".PacientesActivity"/>
+            android:exported="true"
+            android:label="Paciente"
+            android:parentActivityName=".PacientesActivity" />
         <activity
             android:name=".NuevoPacienteActivity"
-            android:exported="false"
-            android:parentActivityName=".PacientesActivity"/>
+            android:exported="true"
+            android:parentActivityName=".PacientesActivity" />
         <activity
             android:name=".PacientesActivity"
-            android:exported="false"
-            android:parentActivityName=".InicioActivity"/>
+            android:exported="true"
+            android:label="Mis Pacientes"
+            android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InicioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegistrarseActivity"
-            android:exported="false"
-            android:parentActivityName=".IniciarSesionActivity"/>
-        <activity
-            android:name=".IniciarSesionActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
-            android:exported="true">
-            android:theme="@style/Theme.Codental.SplashScreen" />
+            android:exported="true"
+            android:theme="@style/Theme.CodentalNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

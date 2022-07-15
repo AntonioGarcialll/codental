@@ -45,10 +45,9 @@
             android:id="@+id/btnGuardar"
             android:layout_width="158dp"
             android:layout_height="56dp"
-            android:text="Guardar"
-            android:backgroundTint="@color/azulBotonLogin"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="Guardar" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

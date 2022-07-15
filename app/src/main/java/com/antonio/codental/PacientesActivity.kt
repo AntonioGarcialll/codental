@@ -1,26 +1,18 @@
 package com.antonio.codental
 
+//import kotlinx.android.synthetic.main.activity_pacientes.*
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.antonio.codental.databinding.ActivityAbonosBinding
 import com.antonio.codental.databinding.ActivityPacientesBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.toObject
-//import kotlinx.android.synthetic.main.activity_pacientes.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
 
@@ -29,19 +21,19 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
     private lateinit var binding: ActivityPacientesBinding
 
     //Variable para la base de datos
-    private lateinit var db : FirebaseFirestore
+    private lateinit var db: FirebaseFirestore
 
 
     //Array para guardar los pacientes
-    private lateinit var listaArrayList : ArrayList<Paciente>
+    private lateinit var listaArrayList: ArrayList<Paciente>
 
     //Copia del Array para guardar los pacientes
-    private lateinit var tempArrayList : ArrayList<Paciente>
+    private lateinit var tempArrayList: ArrayList<Paciente>
 
     //Adapter global
     private lateinit var adapter: PacienteAdapter
 
-    lateinit var pacientes:MutableList<Paciente>
+    lateinit var pacientes: MutableList<Paciente>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,45 +43,35 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         binding = ActivityPacientesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
-        title = "Mis Pacientes"
-
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         //Inicializa array para lupa
         tempArrayList = arrayListOf<Paciente>()
 
         //Inicializa la binding.lista de los pacientes
         pacientes = mutableListOf()
 
-        adapter = PacienteAdapter(this,getPacientes())
+        adapter = PacienteAdapter(this, getPacientes())
         binding.lista.layoutManager = LinearLayoutManager(this)
         binding.lista.adapter = adapter
         adapter.notifyDataSetChanged()
 
 
-
-
         //Listener para el floatingActionButton de agregar
         binding.fabAgregar.setOnClickListener {
-            val intent = Intent(this,NuevoPacienteActivity::class.java)
+            val intent = Intent(this, NuevoPacienteActivity::class.java)
             startActivity(intent)
         }
 
     }
 
     @JvmName("getPacientes1")
-    fun getPacientes() : MutableList<Paciente>{
+    fun getPacientes(): MutableList<Paciente> {
 
         db = FirebaseFirestore.getInstance()
         db.collection("pacientes")
             .get()
             .addOnSuccessListener { value ->
-                for (dc : DocumentChange in value?.documentChanges!!) {
-                    if(dc.type == DocumentChange.Type.ADDED)
-                    {
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
                         pacientes.add(dc.document.toObject(Paciente::class.java))
                     }
                 }
@@ -254,8 +236,8 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
     }*/
 
     //Menú para la lupa y que realice búsqueda
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean{
-        menuInflater.inflate(R.menu.lupa_menu,menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.lupa_menu, menu)
 
         val item = menu?.findItem(R.id.lupa_item)
         val searchView = item?.actionView as SearchView
@@ -263,26 +245,22 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         //Para abrir teclado en mayúscula la primer letra
         searchView.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 tempArrayList.clear()
-                val searchText = newText!!.toLowerCase(Locale.getDefault())
-                if(searchText.isNotEmpty())
-                {
-                    pacientes.forEach{
-                        if(it.paciente!!.toLowerCase(Locale.getDefault()).contains(searchText))
-                        {
+                val searchText = newText!!.lowercase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    pacientes.forEach {
+                        if (it.paciente!!.lowercase(Locale.getDefault()).contains(searchText)) {
                             tempArrayList.add(it)
                         }
                     }
                     adapter.notifyDataSetChanged()
-                }
-                else
-                {
+                } else {
                     tempArrayList.clear()
                     tempArrayList.addAll(pacientes)
                     adapter.notifyDataSetChanged()
@@ -296,10 +274,11 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
     //Listener para hacer acción al darle clic a algún paciente
     override fun click(paciente: Paciente) {
         //Le pasamos los datos del contacto a la ContactoActivity
-        val intent = Intent(this,InfoPacienteActivity::class.java)
-        intent.putExtra("contactoEnviado",paciente)
+        val intent = Intent(this, InfoPacienteActivity::class.java)
+        intent.putExtra("contactoEnviado", paciente)
         startActivity(intent)
     }
+
 }
 
 

@@ -3,8 +3,6 @@ package com.antonio.codental
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.widget.*
@@ -27,10 +25,6 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_gasto_yegreso)
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
-
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Obtengo los datos del gastoEgreso que me mandan
         val objIntent: Intent = intent
@@ -40,7 +34,6 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
         var tvEstatusObtenido = objIntent.getStringExtra("tvEstatus")
         var actualizarObtenido = objIntent.getStringExtra("actualizar")
         var miIdGastoEgresoObtenido = objIntent.getStringExtra("miIdGastoEgreso")
-
 
         //Enlazamos las variables
         btnFecha = findViewById(R.id.btnFecha)

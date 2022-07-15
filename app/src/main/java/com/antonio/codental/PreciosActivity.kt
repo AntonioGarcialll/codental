@@ -1,18 +1,19 @@
 package com.antonio.codental
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.InputType
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.antonio.codental.databinding.ActivityAbonosBinding
 import com.antonio.codental.databinding.ActivityPreciosBinding
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 //import kotlinx.android.synthetic.main.activity_pacientes.*
 
@@ -34,15 +35,9 @@ class PreciosActivity : AppCompatActivity(), PreciosInterfaz {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Flecha para volver a atrás
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         //Cosas de binding
         binding = ActivityPreciosBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#218eff")))
-        title = "Lista de Precios"
 
         //Inicializa array para lupa
         tempArrayList = arrayListOf<Precios>()
@@ -112,6 +107,42 @@ class PreciosActivity : AppCompatActivity(), PreciosInterfaz {
                 Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
         return tempArrayList
+    }
+
+    //Menú para la lupa y que realice búsqueda
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.lupa_menu, menu)
+
+        val item = menu?.findItem(R.id.lupa_item)
+        val searchView = item?.actionView as SearchView
+
+        //Para abrir teclado en mayúscula la primer letra
+        searchView.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                tempArrayList.clear()
+                val searchText = newText!!.lowercase(Locale.getDefault())
+                if (searchText.isNotEmpty()) {
+                    precios.forEach {
+                        if (it.servicio!!.lowercase(Locale.getDefault()).contains(searchText)) {
+                            tempArrayList.add(it)
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                } else {
+                    tempArrayList.clear()
+                    tempArrayList.addAll(precios)
+                    adapter.notifyDataSetChanged()
+                }
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun click(precio: Precios) {

@@ -23,36 +23,34 @@
             android:id="@+id/tvFechaMsj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fecha de registro"
-            android:textSize="20dp"
-            android:textColor="@color/gris"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Fecha de registro"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tvFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de registro"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:textStyle="italic"
-            android:textAlignment="center"/>
+            android:layout_marginRight="10dp"
+            android:hint="Fecha de registro"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/tvPacienteMsj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Paciente"
-            android:textSize="20dp"
-            android:textColor="@color/gris"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:text="Paciente"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tvPaciente"
@@ -62,10 +60,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:hint="Paciente"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="italic"
-            android:textAlignment="center"/>
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/tvDoctorMsj"
@@ -75,20 +73,37 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:text="Doctor"
-            android:textColor="@color/gris"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/tvDoctor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Doctor"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
             android:textStyle="italic"
-            android:textAlignment="center"/>
+            tools:text="Doctor" />
+
+        <ProgressBar
+            android:id="@+id/pb_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_wait_a_moment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/wait_a_moment"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

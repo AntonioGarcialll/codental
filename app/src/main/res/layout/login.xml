@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_max"
+        app:cardCornerRadius="@dimen/margin_max"
+        app:cardElevation="@dimen/margin_min"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineTop">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/margin_default">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLineCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tVRegistrarse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Registrarse"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                    app:layout_constraintBottom_toTopOf="@id/btn_email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_email"
+                    style="@style/FirebaseUI.Button.AccountChooser.EmailButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fui_sign_in_with_email"
+                    android:textAlignment="center"
+                    app:cornerRadius="@dimen/margin_max"
+                    app:layout_constraintBottom_toTopOf="@id/guideLineCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_google"
+                    style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fui_sign_in_with_google"
+                    android:textAlignment="center"
+                    app:cornerRadius="@dimen/margin_max"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/guideLineCenter" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTextoCrearCuenta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="¿No tiene cuenta? Elija entre Acceder con Google o con su correo para crear una."
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_google" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

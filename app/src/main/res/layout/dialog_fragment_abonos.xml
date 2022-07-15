@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:orientation="vertical">
 
@@ -25,8 +25,8 @@
                 android:id="@+id/tvFecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,8 +56,8 @@
                 android:id="@+id/tvTratamiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,8 +72,8 @@
                 android:id="@+id/tvCosto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -88,9 +88,9 @@
                 android:id="@+id/etAbono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:imeOptions="actionNext"
-                android:nextFocusForward="@id/etFirma"/>
+                android:inputType="number"
+                android:nextFocusForward="@id/etFirma" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,8 +118,7 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="number"
-                    android:textColor="@color/verdeBotonLogin"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -138,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:inputType="number"
-                    android:textColor="@color/rojo"/>
+                    android:textColor="@color/rojo" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -184,8 +183,8 @@
                 android:id="@+id/btnFecha2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_calendar_today_24"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_baseline_calendar_today_24" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -199,8 +198,8 @@
                     android:id="@+id/tvFecha2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -215,8 +214,8 @@
                 android:id="@+id/btnReloj"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_access_time_24"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_baseline_access_time_24" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -230,8 +229,8 @@
                     android:id="@+id/etHoraProxCita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

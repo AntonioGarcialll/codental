@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">codental</string>
     <string name="wait_a_moment">Espere un momento…</string>
+    <string name="sign_off">Cerrar Sesión</string>
+    <string name="are_you_sure_to_take_this_action">¿Está seguro de realizar esta acción?</string>
+    <string name="you_have_logged_out">Ha cerrado sesión</string>
+    <string name="failed_to_log_out">Ocurrió un error al cerrar sesión</string>
+    <string name="cancel">Cancelar</string>
 </resources>
