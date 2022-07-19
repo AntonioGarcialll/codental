@@ -1,144 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue500light"
     android:fillViewport="true"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".InfoTratamientoActivity">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLieArriba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLieAbajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_max"
+        app:cardCornerRadius="@dimen/margin_max"
+        app:cardElevation="@dimen/margin_min"
+        app:layout_constraintBottom_toTopOf="@id/guideLieAbajo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLieArriba">
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="23dp">
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/tvFechaFijo"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:hint="Fecha"
-                android:textSize="20dp" />
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/margin_default">
 
-            <TextView
-                android:id="@+id/tvFecha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_horizontal"
-                android:hint="DD/MM/AAAA"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/muela" />
 
-            <TextView
-                android:id="@+id/tvNombreTratamientoFijo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:hint="Tratamiento"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/tvFechaFijo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Fecha"
+                    android:textColor="@color/gris"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
 
-            <TextView
-                android:id="@+id/tvTratamiento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_horizontal"
-                android:hint="Tratamiento"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/tvFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:hint="DD/MM/AAAA"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvFechaFijo" />
 
-            <TextView
-                android:id="@+id/tvCostoFijo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:hint="Costo"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/tvNombreTratamientoFijo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Tratamiento"
+                    android:textColor="@color/gris"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvFecha" />
 
-            <TextView
-                android:id="@+id/tvCosto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_horizontal"
-                android:hint="Costo"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/tvTratamiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:hint="Tratamiento"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNombreTratamientoFijo" />
 
-            <TextView
-                android:id="@+id/tvImagen1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Imagen 1"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvCostoFijo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Costo"
+                    android:textColor="@color/gris"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTratamiento" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgTratamiento"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="?attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
-                app:srcCompat="@drawable/ic_baseline_image_search_24"
-                app:strokeWidth="1dp"
-                tools:layout_editor_absoluteY="216dp" />
+                <TextView
+                    android:id="@+id/tvCosto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:hint="Costo"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCostoFijo" />
 
-            <TextView
-                android:id="@+id/tvImagen2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Imagen 2"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvImagen1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="Imagen 1"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCosto" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgTratamiento2"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="?attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
-                app:srcCompat="@drawable/ic_baseline_image_search_24"
-                app:strokeWidth="1dp"
-                tools:layout_editor_absoluteY="216dp" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgTratamiento"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="30dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvImagen1"
+                    app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
+                    app:srcCompat="@drawable/ic_baseline_image_search_24"
+                    app:strokeWidth="1dp" />
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/tvImagen2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="Imagen 2"
+                    android:textColor="@color/black"
+                    android:textSize="23dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgTratamiento" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgTratamiento2"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="30dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvImagen2"
+                    app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
+                    app:srcCompat="@drawable/ic_baseline_image_search_24"
+                    app:strokeWidth="1dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

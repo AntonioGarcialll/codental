@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class InicioActivity : AppCompatActivity() {
 
+    private var idDoctor: String? = null
+    private var nombreDoctor: String? = null
     private lateinit var binding: ActivityInicioBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var authStateListener: FirebaseAuth.AuthStateListener
@@ -27,7 +29,11 @@ class InicioActivity : AppCompatActivity() {
 
             if (result.resultCode == RESULT_OK) {
                 val user = FirebaseAuth.getInstance().currentUser
-                if (user != null) supportActionBar?.title = "Bienvenido ${user.displayName}"
+                if (user != null) {
+                    idDoctor = user.uid
+                    nombreDoctor = user.displayName
+                    supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
+                }
             } else {
                 if (response == null) {
                     Toast.makeText(this, "Hasta pronto", Toast.LENGTH_SHORT).show()
@@ -47,12 +53,16 @@ class InicioActivity : AppCompatActivity() {
             }
         }
 
+
     private fun setupAuth() {
         firebaseAuth = FirebaseAuth.getInstance()
         authStateListener = FirebaseAuth.AuthStateListener { auth ->
             if (auth.currentUser != null) {
                 showLoadComponents(View.GONE, View.VISIBLE)
-                supportActionBar?.title = "Bienvenido ${auth.currentUser!!.displayName}"
+                //supportActionBar?.title = "Bienvenido Dr ${auth.currentUser!!.displayName}"
+                idDoctor = auth.currentUser!!.uid
+                nombreDoctor = auth.currentUser!!.displayName
+                supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
             } else {
                 val providers = listOf(
                     AuthUI.IdpConfig.EmailBuilder().build(),
@@ -93,6 +103,8 @@ class InicioActivity : AppCompatActivity() {
         //Enlazo botón de Registro Pacientes
         binding.btnPacientes.setOnClickListener {
             val intent = Intent(this, PacientesActivity::class.java)
+            /*intent.putExtra("idDoctor", idDoctor)
+            intent.putExtra("nombreDoctor", nombreDoctor)*/
             startActivity(intent)
         }
 
@@ -133,6 +145,7 @@ class InicioActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Método para cuando cierre sesión
     private fun signOut() {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.sign_off))

@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class NuevoPrecioActivity : AppCompatActivity() {
@@ -61,10 +62,6 @@ class NuevoPrecioActivity : AppCompatActivity() {
                         .show()
                     //Se cierra actividad y regresa a la activity de la lista de los pacientes
                     val i = Intent(applicationContext, PreciosActivity::class.java)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    i.putExtra("EXIT", true)
                     startActivity(i)
                     finish()
                 } else {
@@ -73,7 +70,8 @@ class NuevoPrecioActivity : AppCompatActivity() {
                     val data = hashMapOf(
                         "servicio" to servicio.text.toString(),
                         "precio" to precio.text.toString(),
-                        "idServicio" to "a"
+                        "idServicio" to "a",
+                        "idDoctor" to FirebaseAuth.getInstance().currentUser?.let { it.uid }
                     )
                     db.collection("servicios").add(data)
                         .addOnSuccessListener { documentReference ->
@@ -91,10 +89,6 @@ class NuevoPrecioActivity : AppCompatActivity() {
                                 applicationContext,
                                 PreciosActivity::class.java
                             )        // Specify any activity here e.g. home or splash or login etc
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            i.putExtra("EXIT", true)
                             startActivity(i)
                             finish()
                         }

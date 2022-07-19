@@ -6,4 +6,5 @@ data class Precios(
     var servicio: String? = null,
     var precio: String? = null,
     var idServicio: String? = null,
+    var idDoctor: String? = null
 ) : Serializable

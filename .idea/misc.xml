@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2325" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2755" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_cloud_download_24.xml" value="0.2755" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2325" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2325" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_error_24.xml" value="0.2755" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_image_search_24.xml" value="0.2755" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_baseline_monetization_on_24.xml" value="0.2325" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/ic_logo.xml" value="0.2755" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/redondo.xml" value="0.2755" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/drawable/redondo_blanco.xml" value="0.2755" />
@@ -14,7 +18,7 @@
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_abonos.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_gastos_yegresos.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_info_gasto_yegreso.xml" value="0.2930253623188406" />
-        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_info_paciente.xml" value="0.2793594306049822" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_info_paciente.xml" value="0.2" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_info_precio.xml" value="0.3359375" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_info_tratamiento.xml" value="0.264" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_iniciar_sesion.xml" value="0.25" />
@@ -25,7 +29,7 @@
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_paciente.xml" value="0.25" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_precio.xml" value="0.176" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_nuevo_tratamiento.xml" value="0.2930253623188406" />
-        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_pacientes.xml" value="0.2930253623188406" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_pacientes.xml" value="0.264" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_precios.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_registrarse.xml" value="0.264" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
@@ -37,6 +41,7 @@
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_precios.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/item_tratamientos.xml" value="0.2930253623188406" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/login.xml" value="0.2105978260869565" />
+        <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/layout/photo_view_dialog.xml" value="0.2105978260869565" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/exit.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/gasto_egreso_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/Antonio/StudioProjects/codental/app/src/main/res/menu/lupa_menu.xml" value="0.3359375" />

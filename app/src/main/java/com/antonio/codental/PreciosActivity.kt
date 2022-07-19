@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonio.codental.databinding.ActivityPreciosBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -80,6 +81,7 @@ class PreciosActivity : AppCompatActivity(), PreciosInterfaz {
 
         db = FirebaseFirestore.getInstance()
         db.collection("servicios")
+            .whereEqualTo("idDoctor", FirebaseAuth.getInstance().currentUser?.let { it.uid })
             .get()
             .addOnSuccessListener { value ->
                 for (dc: DocumentChange in value?.documentChanges!!) {

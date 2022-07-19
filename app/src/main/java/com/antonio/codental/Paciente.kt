@@ -6,5 +6,6 @@ data class Paciente(
     var fecha: String? = null,
     val paciente: String? = null,
     val doctor: String? = null,
-    val idPaciente: String? = null
+    var idPaciente: String? = null,
+    val idDoctor: String? = null
 ) : Serializable

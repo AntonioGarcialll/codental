@@ -6,14 +6,17 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.antonio.codental.databinding.ActivityInfoTratamientoBinding
+import com.github.chrisbanes.photoview.PhotoView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
+
 
 class InfoTratamientoActivity : AppCompatActivity() {
     //Declaración de variables
@@ -62,6 +65,14 @@ class InfoTratamientoActivity : AppCompatActivity() {
         bajarImg2(foto2) // se pinta la foto 2 en su imageView
         db = FirebaseFirestore.getInstance()
 
+        binding.imgTratamiento.setOnClickListener {
+            ponerImagenZoom(foto1)
+        }
+
+        binding.imgTratamiento2.setOnClickListener {
+            ponerImagenZoom(foto2)
+        }
+
 
         /*//Se pinta la imagen 1
         Glide.with(this).load(foto1)
@@ -88,6 +99,26 @@ class InfoTratamientoActivity : AppCompatActivity() {
         }
     }
 
+    fun ponerImagenZoom(nombreImagen: String?) {
+        val mBuilder = AlertDialog.Builder(this@InfoTratamientoActivity)
+        val mView: View = layoutInflater.inflate(R.layout.dialog_custom_layout, null)
+        val photoView: PhotoView = mView.findViewById(R.id.imageViewDialog)
+        val imageName = nombreImagen
+        val storageRef =
+            FirebaseStorage.getInstance().reference.child("tratamientosfolder/$imageName")
+
+        val localfile = File.createTempFile("tempImage", "jpg")
+        storageRef.getFile(localfile).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            photoView.setImageBitmap(bitmap)
+            mBuilder.setView(mView)
+            val mDialog = mBuilder.create()
+            mDialog.show()
+
+        }.addOnFailureListener {
+        }
+    }
+
     fun bajarImg2(nombreImagen: String?) {
         val imageName = nombreImagen
         val storageRef =
@@ -102,13 +133,9 @@ class InfoTratamientoActivity : AppCompatActivity() {
         }
     }
 
-    fun decirHola(): String {
-        return "hola desde infotratamiento"
-    }
-
     //Función para sobreescribir el menú por el que ya tiene los iconos de editar, eliminar y abonos
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.tratamiento_menu, menu)
+        menuInflater.inflate(com.antonio.codental.R.menu.tratamiento_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

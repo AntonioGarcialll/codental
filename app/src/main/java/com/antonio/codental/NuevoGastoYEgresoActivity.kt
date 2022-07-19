@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -84,10 +85,6 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
                         .show()
                     //Se cierra actividad y regresa a la activity de la lista de los pacientes
                     val i = Intent(applicationContext, GastosYEgresosActivity::class.java)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    i.putExtra("EXIT", true)
                     startActivity(i)
                     finish()
                 } else {
@@ -98,7 +95,8 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
                         "gastoEgreso" to gastoEgreso.text.toString(),
                         "costo" to costo.text.toString(),
                         "estatus" to estatus.text.toString(),
-                        "idGastoEgreso" to "a"
+                        "idGastoEgreso" to "a",
+                        "idDoctor" to FirebaseAuth.getInstance().currentUser?.let { it.uid }
                     )
                     db.collection("gastosEgresos").add(data)
                         .addOnSuccessListener { documentReference ->
@@ -116,10 +114,6 @@ class NuevoGastoYEgresoActivity : AppCompatActivity() {
                                 applicationContext,
                                 GastosYEgresosActivity::class.java
                             )        // Specify any activity here e.g. home or splash or login etc
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            i.putExtra("EXIT", true)
                             startActivity(i)
                             finish()
                         }

@@ -33,9 +33,6 @@ class NuevoPacienteActivity : AppCompatActivity() {
         val objIntent: Intent = intent
         var fechaObtenido = objIntent.getStringExtra("tvFecha")
         var pacienteObtenido = objIntent.getStringExtra("tvPaciente")
-        //var tratamientoObtenido = objIntent.getStringExtra("tvTratamiento")
-        //var costoObtenido = objIntent.getStringExtra("tvCosto")
-        //var fotosObtenido = objIntent.getStringExtra("tvFotos")
         var actualizarObtenido = objIntent.getStringExtra("actualizar")
         var miIdPacienteObtenido = objIntent.getStringExtra("miIdPaciente")
 
@@ -43,11 +40,9 @@ class NuevoPacienteActivity : AppCompatActivity() {
         tvFecha = findViewById(R.id.tvFecha)
         etPaciente = findViewById(R.id.etPaciente)
         etDoctor = findViewById(R.id.etDoctor)
-        //etTratamiento = findViewById(R.id.etTratamiento)
-        //etCosto = findViewById(R.id.etCosto)
         btnFecha = findViewById(R.id.btnFecha)
         btnGuardar = findViewById(R.id.btnGuardar)
-        FirebaseAuth.getInstance().currentUser?.let { etDoctor.setText(it.displayName) }
+        FirebaseAuth.getInstance().currentUser?.let { etDoctor.setText("Dr. " + it.displayName) }
 
 
         if (actualizarObtenido == "actualizame") {
@@ -91,10 +86,6 @@ class NuevoPacienteActivity : AppCompatActivity() {
                         .show()
                     //Se cierra actividad y regresa a la activity de la lista de los pacientes
                     val i = Intent(applicationContext, PacientesActivity::class.java)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    i.putExtra("EXIT", true)
                     startActivity(i)
                     finish()
                 } else {
@@ -104,7 +95,8 @@ class NuevoPacienteActivity : AppCompatActivity() {
                         "fecha" to tvFecha.text.toString(),
                         "paciente" to etPaciente.text.toString(),
                         "doctor" to etDoctor.text.toString(),
-                        "idPaciente" to "a"
+                        "idPaciente" to "a",
+                        "idDoctor" to FirebaseAuth.getInstance().currentUser?.let { it.uid }
                     )
 
                     db.collection("pacientes").add(data)
@@ -128,10 +120,6 @@ class NuevoPacienteActivity : AppCompatActivity() {
                                 applicationContext,
                                 PacientesActivity::class.java
                             )        // Specify any activity here e.g. home or splash or login etc
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            i.putExtra("EXIT", true)
                             startActivity(i)
                             finish()
                         }

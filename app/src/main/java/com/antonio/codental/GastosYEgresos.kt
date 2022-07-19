@@ -7,5 +7,6 @@ data class GastosYEgresos(
     var gastoEgreso: String? = null,
     var costo: String? = null,
     var estatus: String? = null,
-    var idGastoEgreso: String? = null
+    var idGastoEgreso: String? = null,
+    var idDoctor: String? = null
 ) : Serializable

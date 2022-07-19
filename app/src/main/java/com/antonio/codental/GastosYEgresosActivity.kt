@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonio.codental.databinding.ActivityGastosYegresosBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -90,6 +91,7 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
 
         db = FirebaseFirestore.getInstance()
         db.collection("gastosEgresos")
+            .whereEqualTo("idDoctor", FirebaseAuth.getInstance().currentUser?.let { it.uid })
             .get()
             .addOnSuccessListener { value ->
                 for (dc: DocumentChange in value?.documentChanges!!) {

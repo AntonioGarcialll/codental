@@ -72,7 +72,6 @@
                 android:layout_height="match_parent"
                 android:paddingHorizontal="@dimen/margin_default">
 
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_Pacientes"
                     android:layout_width="0dp"
@@ -83,10 +82,12 @@
                     app:layout_constraintBottom_toTopOf="@id/btn_GastosEgresos"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="20dp"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_GastosEgresos"
+                    android:textSize="20dp"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/button_height"
                     android:text="GASTOS Y EGRESOS"
@@ -99,6 +100,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_Precios"
+                    android:textSize="20dp"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/button_height"
                     android:text="LISTA DE PRECIOS"

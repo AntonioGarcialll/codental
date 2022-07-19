@@ -3,5 +3,5 @@
     <dimen name="margin_max">24dp</dimen>
     <dimen name="margin_min">8dp</dimen>
     <dimen name="margin_default">16dp</dimen>
-    <dimen name="button_height">100dp</dimen>
+    <dimen name="button_height">140dp</dimen>
 </resources>

@@ -8,9 +8,10 @@ import com.antonio.codental.databinding.ItemPacienteBinding
 
 class PacienteAdapter(
     private val listener: PacienteInterfaz,
-    private val listaPacientes: List<Paciente>
+    private val listaPacientes: MutableList<Paciente>
 ) :
     RecyclerView.Adapter<PacienteAdapter.PacientesViewHolder>() {
+    private val copiedList = mutableListOf<Paciente>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,6 +35,41 @@ class PacienteAdapter(
 
     //Obtengo el tamaño de la lista
     override fun getItemCount(): Int = listaPacientes.size
+
+    fun add(paciente: Paciente) {
+        if (!listaPacientes.contains(paciente) && !copiedList.contains(paciente)) {
+            listaPacientes.add(paciente)
+            copiedList.add(paciente)
+            notifyItemInserted(listaPacientes.lastIndex)
+        } else {
+            update(paciente)
+        }
+    }
+
+    private fun update(paciente: Paciente) {
+        val i = listaPacientes.indexOf(paciente)
+        val j = copiedList.indexOf(paciente)
+        if (i != -1 && j != -1) {
+            listaPacientes[i] = paciente
+            copiedList[j] = paciente
+            notifyItemChanged(i)
+        }
+    }
+
+    fun filterListByQuery(query: String?) {
+        if (query.isNullOrBlank()) {
+            listaPacientes.clear()
+            listaPacientes.addAll(copiedList)
+        } else {
+            listaPacientes.clear()
+            copiedList.filter { paciente ->
+                query.toString().trim().lowercase() in paciente.paciente!!.lowercase()
+            }.also { filteredList ->
+                listaPacientes.addAll(filteredList)
+            }
+        }
+        notifyDataSetChanged()
+    }
 
 
     inner class PacientesViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/tratamientos_item"
-        android:icon="@drawable/ic_baseline_medical_services_24"
+        android:icon="@drawable/dental_blanco"
         android:title="Item"
         app:showAsAction="always" />
     <item

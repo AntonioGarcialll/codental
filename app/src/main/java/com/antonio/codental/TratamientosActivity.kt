@@ -53,12 +53,6 @@ class TratamientosActivity : AppCompatActivity(), TratamientosInterfaz {
             })
         }
 
-        /*adapter = TratamientosAdapter(this, getTratamientos(miIdPaciente!!))
-        binding.lista.layoutManager = LinearLayoutManager(this)
-        binding.lista.adapter = adapter
-        adapter.notifyDataSetChanged()*/
-
-
         //Listener para el floatingActionButton de agregar
         binding.fabAgregar.setOnClickListener {
             idPaciente?.let { id ->

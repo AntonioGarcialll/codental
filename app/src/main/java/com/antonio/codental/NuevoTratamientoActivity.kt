@@ -260,14 +260,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                 ).show()
             } else {
                 if (actualizarObtenido == "actualizar") {
-                    /*//Hay que actualizar la info del tratamiento
-                    errorFoto1 = copiaErrorFoto1
-                    if(errorFoto1 == null)
-                    {
-                        //No seleccionaste la foto 1
-                        errorFoto1 = true
-                    }*/
-
                     var foto1 = "foto1"
                     var foto2 = "foto2"
                     if (errorFoto1 == false && errorFoto2 == false) {
@@ -296,10 +288,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                         )
                             .show()
                         val i = Intent(applicationContext, PacientesActivity::class.java)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
                         startActivity(i)
                         finish()
                     } else if (errorFoto1 == false && errorFoto2 == true) {
@@ -324,10 +312,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                         )
                             .show()
                         val i = Intent(applicationContext, PacientesActivity::class.java)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
                         startActivity(i)
                         finish()
                     } else if (errorFoto1 == true && errorFoto2 == false) {
@@ -352,10 +336,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                         )
                             .show()
                         val i = Intent(applicationContext, PacientesActivity::class.java)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
                         startActivity(i)
                         finish()
                     } else {
@@ -372,10 +352,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                         )
                             .show()
                         val i = Intent(applicationContext, PacientesActivity::class.java)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
                         startActivity(i)
                         finish()
                     }
@@ -414,10 +390,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                                     applicationContext,
                                     PacientesActivity::class.java
                                 )        // Specify any activity here e.g. home or splash or login etc
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                i.putExtra("EXIT", true)
                                 startActivity(i)
                                 finish()
                             }
@@ -429,10 +401,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                                     applicationContext,
                                     PacientesActivity::class.java
                                 )        // Specify any activity here e.g. home or splash or login etc
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                i.putExtra("EXIT", true)
                                 startActivity(i)
                                 finish()
                             }
@@ -462,10 +430,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                                     applicationContext,
                                     PacientesActivity::class.java
                                 )        // Specify any activity here e.g. home or splash or login etc
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                i.putExtra("EXIT", true)
                                 startActivity(i)
                                 finish()
                             }
@@ -477,10 +441,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
                                     applicationContext,
                                     PacientesActivity::class.java
                                 )        // Specify any activity here e.g. home or splash or login etc
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                i.putExtra("EXIT", true)
                                 startActivity(i)
                                 finish()
                             }
@@ -493,101 +453,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
     override fun onBackPressed() {
         //super.onBackPressed()
     }
-
-    /*fun subirFotos(idPaciente: String, operacion: String) {
-        //Se sube la imagen 1
-        uploadImage(photoSelectedUri) {
-            if (it.isSuccess) {
-                miFoto = it.imageUrl.toString()
-                miIdTratamiento = it.documentId.toString()
-
-                if (errorFoto2 == false) {
-                    //Se sube imagen 1 y 2
-                    uploadImage(photoSelectedUri2) {
-                        if (it.isSuccess) {
-                            miFoto2 = it.imageUrl.toString()
-                            tratamiento = Tratamiento(
-                                fecha = binding.tvFecha.text.toString().trim(),
-                                nombreTratamiento = binding.etNombreTratamiento.text.toString()
-                                    .trim(),
-                                costo = binding.etCosto.text.toString().trim(),
-                                fotos = miFoto.toString().trim(),
-                                fotos2 = miFoto2.toString().trim(),
-                                idPaciente = idPaciente.toString().trim(),
-                                idTratamiento = miIdTratamiento.toString().trim()
-                            )
-                            create(tratamiento!!, miIdTratamiento.toString(), operacion)
-                        }
-                    }
-                } else {
-                    //Se sube imagen 1
-                    uploadImage(photoSelectedUri) {
-                        if (it.isSuccess) {
-                            miFoto = it.imageUrl.toString()
-                            tratamiento = Tratamiento(
-                                fecha = binding.tvFecha.text.toString().trim(),
-                                nombreTratamiento = binding.etNombreTratamiento.text.toString()
-                                    .trim(),
-                                costo = binding.etCosto.text.toString().trim(),
-                                fotos = miFoto.toString().trim(),
-                                fotos2 = miFoto2.toString().trim(),
-                                idPaciente = idPaciente.toString().trim(),
-                                idTratamiento = miIdTratamiento.toString().trim()
-                            )
-                            create(tratamiento!!, miIdTratamiento.toString(), operacion)
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-
-    /*private fun create(tratamiento: Tratamiento, documentId: String, operacion: String) {
-        var mensaje: String
-        if (operacion == "agregar") {
-            mensaje = "Tratamiento Agregado Correctamente"
-        } else {
-            mensaje = "Tratamiento Actualizado Correctamente"
-        }
-        val db = Firebase.firestore
-        db.collection("tratamientos").document(documentId).set(tratamiento).addOnSuccessListener {
-            finish()
-            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT)
-                .show()
-        }.addOnFailureListener {
-            enableUI(true)
-            Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_SHORT).show()
-        }
-    }*/
-
-    /*private fun uploadImage(miUri: Uri?, callback: (EventPost) -> Unit) {
-        val eventPost = EventPost()
-        eventPost.documentId = Firebase.firestore.collection("tratamientos").document().id
-        val imagesRef = Firebase.storage.reference.child("tratamientosfolder")
-        val photoRef = imagesRef.child(eventPost.documentId!!)
-        if (miUri == null) {
-            eventPost.isSuccess = true
-            callback(eventPost)
-        } else {
-            photoRef.putFile(miUri).addOnSuccessListener { snapshot ->
-                snapshot.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
-                    eventPost.isSuccess = true
-                    eventPost.imageUrl = downloadUrl.toString().trim()
-                    callback(eventPost)
-                }.addOnFailureListener {
-                    eventPost.isSuccess = false
-                    callback(eventPost)
-                    enableUI(true)
-                    Toast.makeText(this, "Error al descargar la imagen", Toast.LENGTH_SHORT).show()
-                }
-            }.addOnFailureListener {
-                eventPost.isSuccess = false
-                callback(eventPost)
-                enableUI(true)
-                Toast.makeText(this, "Error al subir la imagen", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }*/
 
     private fun enableUI(enable: Boolean) {
         with(binding) {

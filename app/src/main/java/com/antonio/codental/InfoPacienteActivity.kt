@@ -1,11 +1,13 @@
 package com.antonio.codental
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.antonio.codental.databinding.ActivityInfoPacienteBinding
 import com.google.firebase.firestore.DocumentReference
@@ -14,33 +16,22 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 
-//import kotlinx.android.synthetic.main.activity_info_paciente.*
-
 class InfoPacienteActivity : AppCompatActivity() {
 
     private val idsTratamientos = arrayListOf<String>()
+    private val fotos1Tratamientos = arrayListOf<String>()
+    private val fotos2Tratamientos = arrayListOf<String>()
     private val idsAbonos = arrayListOf<String>()
-
     var objeto: InfoTratamientoActivity = InfoTratamientoActivity()
-
     private lateinit var binding: ActivityInfoPacienteBinding
-
-    //Variables globales
     lateinit var miIdPaciente: String
-
-    //Variable para la base de datos
     private lateinit var db: FirebaseFirestore
-
     var midb = FirebaseFirestore.getInstance()
-
     private lateinit var tempArrayList: ArrayList<Tratamiento>
     lateinit var tratamientoss: MutableList<Tratamiento>
     lateinit var abonos: MutableList<Abonos>
-
-
     var veces = 0
     var mensajeBorrar = ""
-    var bandera = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +49,9 @@ class InfoPacienteActivity : AppCompatActivity() {
         val pacienteRecibido = intent.getSerializableExtra("contactoEnviado") as Paciente
 
         //Le asignamos los valores del paciente seleccionado a los campos correspondientes de esta activity
-        //Toast.makeText(this, pacienteRecibido.toString(), Toast.LENGTH_SHORT).show()
         binding.tvFecha.text = pacienteRecibido.fecha
         binding.tvPaciente.text = pacienteRecibido.paciente
         binding.tvDoctor.text = pacienteRecibido.doctor
-        //binding.tvTratamiento.text = pacienteRecibido.tratamiento
-        //binding.tvCosto.text = pacienteRecibido.costo
-        //binding.tvFotos.text = pacienteRecibido.fotos
         miIdPaciente = pacienteRecibido.idPaciente!! //id del paciente al que se le dió clic
 
         getTratamientos {
@@ -90,85 +77,120 @@ class InfoPacienteActivity : AppCompatActivity() {
                 intent.putExtra("tvFecha", binding.tvFecha.text.toString())
                 intent.putExtra("tvPaciente", binding.tvPaciente.text.toString())
                 intent.putExtra("tvDoctor", binding.tvDoctor.text.toString())
-                //intent.putExtra("tvTratamiento",binding.tvTratamiento.text.toString())
-                //intent.putExtra("tvCosto",binding.tvCosto.text.toString())
-                //intent.putExtra("tvFotos",binding.tvFotos.text.toString())
                 intent.putExtra("actualizar", "actualizame")
                 intent.putExtra("miIdPaciente", miIdPaciente)
-
                 startActivity(intent)
-                //Toast.makeText(this, "Le di clic a editar", Toast.LENGTH_SHORT).show()
             }
 
             R.id.delete_item -> {
-                enableUI(false)
-                val db = Firebase.firestore
-                val pacienteRef = db.collection("pacientes").document(miIdPaciente)
-                Toast.makeText(this, "el id es: " + miIdPaciente, Toast.LENGTH_SHORT).show()
-                val tratamientosRefList = mutableListOf<DocumentReference>()
-                val abonosRefList = mutableListOf<DocumentReference>()
-                idsTratamientos.forEach { traId ->
-                    val miRef = db.collection("tratamientos").document(traId)
-                    tratamientosRefList.add(miRef)
-                    idsAbonos.forEach { abonoId ->
-                        val miRefAbonos =
-                            db.collection("tratamientos").document(traId).collection("abonos")
-                                .document(abonoId)
-                        abonosRefList.add(miRefAbonos)
-                    }
+                if (veces == 0) {
+                    mensajeBorrar =
+                        "Está a punto de eliminar un paciente.\nPor seguridad, vuelva a dar clic al icono de eliminar por favor."
+
+                } else {
+                    mensajeBorrar =
+                        "¿Está seguro que desea eliminar este paciente?\nSe borrarán todos sus datos, entre ellos sus tratamientos y abonos de manera permanente"
                 }
-                db.runBatch { batch ->
-                    tratamientosRefList.forEach {
-                        batch.delete(it)
+                //AlerDialog para eliminar paciente
+                AlertDialog.Builder(this).apply {
+                    setTitle("Eliminar Paciente")
+                    setMessage(mensajeBorrar)
+                    setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
+                        if (veces > 0) {
+                            //Se elimina el paciente, tratamientos y abonos
+                            enableUI(false)
+                            val db = Firebase.firestore
+                            val pacienteRef = db.collection("pacientes").document(miIdPaciente)
+                            val tratamientosRefList = mutableListOf<DocumentReference>()
+                            val abonosRefList = mutableListOf<DocumentReference>()
+
+                            //Se eliminan las fotos 1 del tratamiento
+                            fotos1Tratamientos.forEach { foto1 ->
+                                borrarImg(foto1)
+                            }
+
+                            //Se eliminan las fotos 2 del tratamiento
+                            fotos2Tratamientos.forEach { foto2 ->
+                                borrarImg(foto2)
+                            }
+
+                            idsTratamientos.forEach { traId ->
+                                val miRef = db.collection("tratamientos").document(traId)
+                                tratamientosRefList.add(miRef)
+                                idsAbonos.forEach { abonoId ->
+                                    val miRefAbonos =
+                                        db.collection("tratamientos").document(traId)
+                                            .collection("abonos")
+                                            .document(abonoId)
+                                    abonosRefList.add(miRefAbonos)
+                                }
+                            }
+                            db.runBatch { batch ->
+                                tratamientosRefList.forEach {
+                                    batch.delete(it)
+                                }
+                                abonosRefList.forEach {
+                                    batch.delete(it)
+                                }
+                                batch.delete(pacienteRef)
+                            }.addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Toast.makeText(
+                                        this@InfoPacienteActivity,
+                                        "Paciente Eliminado Correctamente",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    val i = Intent(
+                                        applicationContext,
+                                        PacientesActivity::class.java
+                                    )        // Specify any activity here e.g. home or splash or login etc
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    i.putExtra("EXIT", true)
+                                    startActivity(i)
+                                    finish()
+                                } else {
+                                    Toast.makeText(
+                                        this@InfoPacienteActivity,
+                                        "Ocurrió Un Error",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val i = Intent(
+                                        applicationContext,
+                                        PacientesActivity::class.java
+                                    )        // Specify any activity here e.g. home or splash or login etc
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    i.putExtra("EXIT", true)
+                                    startActivity(i)
+                                    finish()
+                                }
+                                enableUI(true)
+                            }
+                        } else {
+                            veces++
+                        }
                     }
-                    abonosRefList.forEach {
-                        batch.delete(it)
+                    setNegativeButton("Cancelar") { _: DialogInterface, _: Int ->
+                        veces = 0
                     }
-                    batch.delete(pacienteRef)
-                }.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(this, "Paciente Eliminado Correctamente", Toast.LENGTH_SHORT)
-                            .show()
-                        val i = Intent(
-                            applicationContext,
-                            PacientesActivity::class.java
-                        )        // Specify any activity here e.g. home or splash or login etc
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
-                        startActivity(i)
-                        finish()
-                    } else {
-                        Toast.makeText(this, "Ocurrió Un Error", Toast.LENGTH_SHORT).show()
-                        val i = Intent(
-                            applicationContext,
-                            PacientesActivity::class.java
-                        )        // Specify any activity here e.g. home or splash or login etc
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        i.putExtra("EXIT", true)
-                        startActivity(i)
-                        finish()
-                    }
-                    enableUI(true)
-                }
+                }.show()
             }
 
             R.id.tratamientos_item -> {
-                //Toast.makeText(this, "Le di clic a abonos", Toast.LENGTH_SHORT).show()
                 //Voy a tener que mandar el id del paciente para poder ver sus abonos.
                 val intent = Intent(this, TratamientosActivity::class.java)
                 intent.putExtra("miIdPaciente", miIdPaciente)
                 startActivity(intent)
                 finish()
             }
-
-
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun enableUI(enable: Boolean) {
         with(binding) {
@@ -186,6 +208,12 @@ class InfoPacienteActivity : AppCompatActivity() {
                 for (document in result) {
                     document.getString("idTratamiento")?.let { id ->
                         idsTratamientos.add(id)
+                    }
+                    document.getString("fotos")?.let { foto1 ->
+                        fotos1Tratamientos.add(foto1)
+                    }
+                    document.getString("fotos2")?.let { foto2 ->
+                        fotos2Tratamientos.add(foto2)
                     }
                 }
                 isFinish()
@@ -213,115 +241,6 @@ class InfoPacienteActivity : AppCompatActivity() {
             }
     }
 
-
-    fun eliminarAbonosYTratamientosYPacientes() {
-        /*var arregloIdsTratamientos = arrayListOf<String>()
-        var cadena = ""
-
-        for (i in 0 until getTratamientos().size)
-        {
-            arregloIdsTratamientos.add(getTratamientos().get(i).idTratamiento!!)
-        }
-
-        for (i in 0 until arregloIdsTratamientos.size)
-        {
-            cadena = cadena + obtenerAbonos(arregloIdsTratamientos.get(i)).get(i).miIdAbono + "\n"
-        }
-
-        binding.tvDoctor.setText(cadena)*/
-
-
-        //for (i in 0 until 1) {
-
-        //Se llena la lista con los ids de los abonos del tratamiento
-        /*midb.collection("tratamientos").document(getTratamientos().get(0).idTratamiento!!).collection("abonos")
-            .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        abonos.add(dc.document.toObject(Abonos::class.java))
-                    }
-                }
-                //Obtengo los ids de los abonos del tratamiento en la posición i
-                tempArrayListAbonos.addAll(abonos)
-                for (j in 0 until  tempArrayListAbonos.size)
-                {
-                    cadena = cadena + tempArrayListAbonos.get(j).tratamiento + "\n"
-                }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
-            }*/
-
-
-        //binding.tvDoctor.text = cadena
-        /*
-        var cadena = ""
-        for (i in 0 until tempArrayListAbonos.size) {
-            cadena = cadena + tempArrayListAbonos.get(i).miIdAbono + ","
-        }
-        binding.tvDoctor.text = cadena*/
-
-
-        /*
-        for (k in 0 until tempArrayListAbonos.size)
-        {
-            //Eliminos los abonos del tratamiento
-            var idAbono = tempArrayListAbonos.get(k).miIdAbono
-            db.collection("tratamientos").document(obtenerTratatamientos().get(i).idTratamiento!!)
-                .collection("abonos").document(idAbono!!)
-                .delete()
-                .addOnSuccessListener {
-                    idAbono = ""
-                }.addOnFailureListener {
-
-                }
-        }
-
-
-        //Eliminos las fotos deñ tratamiento
-        borrarImg(obtenerTratatamientos().get(i).fotos)
-        borrarImg(obtenerTratatamientos().get(i).fotos2)
-
-        //Elimino el tratamiento
-        db.collection("tratamientos").document(obtenerTratatamientos().get(i).idTratamiento!!)
-            .delete()
-            .addOnSuccessListener {
-            }.addOnFailureListener {
-            }*/
-        //}
-
-
-        /*
-        //Ya que eliminó los tratamientos con sus abonos, elimino el paciente
-        //Eliminamos el paciente con el id especificado
-        db.collection("pacientes").document(miIdPaciente)
-            .delete()
-            .addOnSuccessListener {
-                Toast.makeText(
-                    this@InfoPacienteActivity,
-                    "Paciente Eliminado Correctamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-                //Se cierra actividad y regresa a la activity main
-                val i = Intent(applicationContext, PacientesActivity::class.java)
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                i.putExtra("EXIT", true)
-                startActivity(i)
-                finish()
-            }
-            .addOnFailureListener {
-                Toast.makeText(
-                    this@InfoPacienteActivity,
-                    "Ocurrió un error",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }*/
-    }
-
-
     fun borrarImg(nombreImagen: String?) {
         val imageName = nombreImagen
         val storageRef =
@@ -332,5 +251,4 @@ class InfoPacienteActivity : AppCompatActivity() {
             //Toast.makeText(this, "Falló", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

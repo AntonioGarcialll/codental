@@ -3,19 +3,19 @@ package com.antonio.codental
 //import kotlinx.android.synthetic.main.activity_pacientes.*
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.antonio.codental.databinding.ActivityPacientesBinding
-import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
+import com.google.firebase.firestore.ktx.toObject
 
 class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
-
 
     //Declaración de variables
     private lateinit var binding: ActivityPacientesBinding
@@ -23,15 +23,11 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
     //Variable para la base de datos
     private lateinit var db: FirebaseFirestore
 
-
-    //Array para guardar los pacientes
-    private lateinit var listaArrayList: ArrayList<Paciente>
-
     //Copia del Array para guardar los pacientes
     private lateinit var tempArrayList: ArrayList<Paciente>
 
     //Adapter global
-    private lateinit var adapter: PacienteAdapter
+    private lateinit var adapterClase: PacienteAdapter
 
     lateinit var pacientes: MutableList<Paciente>
 
@@ -49,11 +45,25 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         //Inicializa la binding.lista de los pacientes
         pacientes = mutableListOf()
 
-        adapter = PacienteAdapter(this, getPacientes())
-        binding.lista.layoutManager = LinearLayoutManager(this)
-        binding.lista.adapter = adapter
-        adapter.notifyDataSetChanged()
-
+        //Cosas para dividir los items en pantalla con linea
+        val manager = LinearLayoutManager(this)
+        val divider = DividerItemDecoration(this, manager.orientation)
+        adapterClase = PacienteAdapter(this, mutableListOf())
+        binding.lista.apply {
+            setHasFixedSize(true)
+            layoutManager = manager
+            adapter = this@PacientesActivity.adapterClase
+            addItemDecoration(divider)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    when {
+                        dy < 0 -> binding.fabAgregar.show()
+                        dy > 0 -> binding.fabAgregar.hide()
+                    }
+                }
+            })
+        }
 
         //Listener para el floatingActionButton de agregar
         binding.fabAgregar.setOnClickListener {
@@ -63,177 +73,30 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getPacientes()
+    }
+
     @JvmName("getPacientes1")
-    fun getPacientes(): MutableList<Paciente> {
+    fun getPacientes() {
 
         db = FirebaseFirestore.getInstance()
         db.collection("pacientes")
+            .whereEqualTo("idDoctor", FirebaseAuth.getInstance().currentUser?.let { it.uid })
             .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        pacientes.add(dc.document.toObject(Paciente::class.java))
-                    }
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val paciente = document.toObject<Paciente>()
+                    paciente.idPaciente = document.id
+                    adapterClase.add(paciente)
                 }
-
-                //Se llena el temp con los pacientes desordenados alfabéticamente
-                tempArrayList.addAll(pacientes)
-
-                //Ordenación de la binding.lista de pacientes original
-                pacientes.sortBy {
-                    it.paciente
-                }
-
-                //Ordenación del temporal
-                tempArrayList.sortBy {
-                    it.paciente
-                }
-
-                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
-        return tempArrayList
+        //return tempArrayList
     }
-
-
-    /*fun obtenerPacientes() : MutableList<Paciente>{
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "José García",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "1",
-                fotos = "foto 1",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Pedro Martínez",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "2",
-                fotos = "foto 2",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Yolanda Colin",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "3",
-                fotos = "foto 3",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Antonio García",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "4",
-                fotos = "foto 4",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Soledad Torres",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "5",
-                fotos = "foto 5",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Edgar Velázquez",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "6",
-                fotos = "foto 6",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Eduardo López",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "7",
-                fotos = "foto 7",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Jennifer Macías",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "8",
-                fotos = "foto 8",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Leonardo Rodríguez",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "9",
-                fotos = "foto 9",
-            )
-        )
-
-        pacientes.add(
-            Paciente(
-                fecha = "01/03/222",
-                paciente = "Christopher Solorio",
-                doctor = "Dr. Jairo",
-                tratamiento = "Ortodoncia",
-                costo = "10000",
-                idPaciente = "10",
-                fotos = "foto 10",
-            )
-        )
-
-        tempArrayList.addAll(pacientes) // se llena el temp con los pacientes desordenados alfabéticamente
-
-        //Ordenación de la binding.lista de pacientes original
-        pacientes.sortBy {
-            it.paciente
-        }
-
-        //Ordenación del temporal
-        tempArrayList.sortBy {
-            it.paciente
-        }
-
-        return tempArrayList
-    }*/
 
     //Menú para la lupa y que realice búsqueda
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -242,29 +105,13 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         val item = menu?.findItem(R.id.lupa_item)
         val searchView = item?.actionView as SearchView
 
-        //Para abrir teclado en mayúscula la primer letra
-        searchView.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                tempArrayList.clear()
-                val searchText = newText!!.lowercase(Locale.getDefault())
-                if (searchText.isNotEmpty()) {
-                    pacientes.forEach {
-                        if (it.paciente!!.lowercase(Locale.getDefault()).contains(searchText)) {
-                            tempArrayList.add(it)
-                        }
-                    }
-                    adapter.notifyDataSetChanged()
-                } else {
-                    tempArrayList.clear()
-                    tempArrayList.addAll(pacientes)
-                    adapter.notifyDataSetChanged()
-                }
+                adapterClase.filterListByQuery(newText)
                 return false
             }
         })

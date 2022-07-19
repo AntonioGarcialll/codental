@@ -4,6 +4,10 @@ buildscript {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.41'
         classpath 'com.google.gms:google-services:4.3.13'
     }
+
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 plugins {
@@ -11,6 +15,7 @@ plugins {
     id 'com.android.library' version '7.2.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
