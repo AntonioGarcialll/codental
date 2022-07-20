@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -143,6 +144,14 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
         binding.tvSaldoPendiente.text = sd.toString()
         if (sd == 0.0) {
             binding.tvTratamientoPagado.text = "Tratamiento Pagado"
+            binding.tvSaldoPendiente.setTextColor(ContextCompat.getColor(this, R.color.blue500dark))
+            binding.tvTratamientoPagado.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.blue500dark
+                )
+            )
+
 
             //Si se va a poder seguir agregando info de citas aunque ya esté pagado por completo
             //el tratamiento
@@ -150,82 +159,13 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
         } else {
             //Si el tratamiento NO está pagado totalmente, debe decir "Tratamiento Activo"
             binding.tvTratamientoPagado.text = "Tratamiento Activo"
+            binding.tvSaldoPendiente.setTextColor(ContextCompat.getColor(this, R.color.verde))
+            binding.tvTratamientoPagado.setTextColor(ContextCompat.getColor(this, R.color.verde))
 
             //binding.tvTratamientoPagado.visibility = View.GONE
             binding.fabAgregar.isEnabled = true
         }
     }
-
-
-    /*fun getAbonos(idTratamiento: String): MutableList<Abonos> {
-
-        val db = Firebase.firestore
-        db.collection("abonos").whereEqualTo("idTratamiento", idTratamiento)
-            .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        abonoss.add(dc.document.toObject(Abonos::class.java))
-                    }
-                }
-
-
-                //Se llena el temp con los pacientes desordenados alfabéticamente
-                tempArrayList.addAll(abonoss)
-
-                //Ordenación de la binding.lista de pacientes original
-                abonoss.sortBy {
-                    it.tratamiento
-                }
-
-                //Ordenación del temporal
-                tempArrayList.sortBy {
-                    it.tratamiento
-                }
-
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
-            }
-        return tempArrayList
-    }*/
-
-    /*fun getPrimerSaldo(idTratamiento: String): String? {
-        val db = Firebase.firestore
-        var miSaldo: String? = null
-        val docRef = db.collection("primerSaldo").document("rZ7kGTb6cesulxQ1J0u5")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    miSaldo = document.getString("primerSaldo")
-                } else {
-                    Toast.makeText(this, "El campo no existe", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_SHORT).show()
-            }
-        return miSaldo
-
-        /*db = FirebaseFirestore.getInstance()
-        db.collection("primerSaldo").whereEqualTo("idTratamiento", idTratamiento)
-            .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        primerosSaldos.add(dc.document.toObject(PrimerSaldo::class.java))
-                    }
-                }
-
-                //Se llena el temp con los pacientes desordenados alfabéticamente
-                tempArrayListPrimerSaldo.addAll(primerosSaldos)
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
-            }
-        return tempArrayListPrimerSaldo*/
-    }*/
 
     override fun obtenerAbonoSeleccionado(): Abonos? = abonoSelected
 

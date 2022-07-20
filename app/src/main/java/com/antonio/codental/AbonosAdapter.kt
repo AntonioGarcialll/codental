@@ -27,7 +27,6 @@ class AbonosAdapter(
         holder.listenerItem(abono)
 
         //Se asignan los componentes del item_pacientes con los de la lista
-        holder.binding.imageView.setImageResource(R.drawable.dolar)
         holder.binding.tvFecha.text = "Fecha: " + abono.fecha
         holder.binding.tvAbono.text = "Abono: " + abono.abono
         holder.binding.tvSaldo.text = "Saldo: " + abono.saldo

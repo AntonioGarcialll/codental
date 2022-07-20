@@ -32,7 +32,8 @@ class InicioActivity : AppCompatActivity() {
                 if (user != null) {
                     idDoctor = user.uid
                     nombreDoctor = user.displayName
-                    supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
+                    //supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
+                    binding.tvBienvenida.text = "Bienvenido Dr. " + nombreDoctor
                 }
             } else {
                 if (response == null) {
@@ -62,7 +63,8 @@ class InicioActivity : AppCompatActivity() {
                 //supportActionBar?.title = "Bienvenido Dr ${auth.currentUser!!.displayName}"
                 idDoctor = auth.currentUser!!.uid
                 nombreDoctor = auth.currentUser!!.displayName
-                supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
+                //supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
+                binding.tvBienvenida.text = "Bienvenido Dr. " + nombreDoctor
             } else {
                 val providers = listOf(
                     AuthUI.IdpConfig.EmailBuilder().build(),

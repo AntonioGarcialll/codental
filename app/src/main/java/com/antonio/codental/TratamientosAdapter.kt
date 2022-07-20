@@ -32,7 +32,6 @@ class TratamientosAdapter(
         holder.listenerItem(tratamiento)
 
         //Se asignan los componentes del item_pacientes con los de la lista
-        holder.binding.imageView.setImageResource(R.drawable.muela)
         holder.binding.tvFechaTratamiento.text = tratamiento.fecha
         holder.binding.tvTratamiento.text = tratamiento.nombreTratamiento
         holder.binding.tvPrecioTratamiento.text = tratamiento.costo

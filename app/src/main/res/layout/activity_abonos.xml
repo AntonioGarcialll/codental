@@ -18,6 +18,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTratamientoPagado"
+        android:layout_margin="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Tratamiento Activo"
@@ -26,10 +27,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:textStyle="bold"
         tools:visibility="visible" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvSaldoPendiente"
+        android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Saldo pendiente:"
@@ -37,6 +41,7 @@
         app:layout_constraintBottom_toTopOf="@id/lista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@id/tvTratamientoPagado" />
 
 

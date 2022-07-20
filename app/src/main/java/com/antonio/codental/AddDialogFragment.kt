@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.antonio.codental.databinding.DialogFragmentAbonosBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -67,6 +68,22 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
             }
             abonos?.let {
                 positiveButton?.text = "Actualizar"
+                if (binding.tvSaldo.text.toString() == "0.0") {
+                    binding.tvSaldo.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.blue500dark
+                        )
+                    )
+                    binding.etAbono.setText("0.0")
+                } else {
+                    binding.tvSaldo.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.verde
+                        )
+                    )
+                }
             }
             binding.tvCosto.setText((activity as? AbonosInterfazAux)?.obtenerCosto().toString())
             binding.tvTratamiento.setText(
@@ -98,7 +115,6 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
                     false
                 ).show()
             }
-
 
 
             positiveButton?.setOnClickListener {
@@ -207,8 +223,6 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
             Locale.getDefault()
         ).format(Date())
         binding.tvFecha.setText(fechaActual)
-
-
         //Pongo en ceros el saldo anterior, cambiará hasta que se ingrese un abono
         binding.tvSaldoAnterior.setText("0.0")
 
@@ -224,12 +238,42 @@ class AddDialogFragment : DialogFragment(), DialogInterface.OnShowListener {
             }
             //Se hacen las condiciones para cuando el tratamiento ya esté pagado
             if (binding.tvSaldo.text.toString() == "0.0") {
+                binding.tvSaldo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.blue500dark
+                    )
+                )
                 binding.etAbono.isFocusable =
                     false //se desactiva la caja de abono para que ya no pueda ingresar más dinero
                 binding.etAbono.setText("0.0")
+            } else {
+                binding.tvSaldo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.verde
+                    )
+                )
             }
 
+
         } else {
+            if (binding.tvSaldo.text.toString() == "0.0") {
+                binding.tvSaldo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.blue500dark
+                    )
+                )
+                binding.etAbono.setText("0.0")
+            } else {
+                binding.tvSaldo.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.verde
+                    )
+                )
+            }
             foco(false)
             dialog?.setTitle("Actualizar Abono")
             binding.tvFecha.setText(abonos?.fecha)

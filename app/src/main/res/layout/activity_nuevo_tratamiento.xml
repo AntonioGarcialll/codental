@@ -12,139 +12,175 @@
         android:layout_height="match_parent"
         tools:context=".NuevoTratamientoActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineArriba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0" />
 
-            <LinearLayout
+        <LinearLayout
+            android:id="@+id/contenedorFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideLineArriba">
+
+            <Button
+                android:id="@+id/btnFecha"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_baseline_calendar_today_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnFecha"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_baseline_calendar_today_24" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:hint="Fecha"
-                    app:endIconMode="clear_text">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tvFecha"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="textPersonName" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Tratamiento"
+                android:hint="Fecha"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etNombreTratamiento"
+                    android:id="@+id/tvFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="textPersonName" />
+
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Costo"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCosto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvImagen1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Imagen 1"
-                android:textStyle="bold" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgTratamiento"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="?attr/selectableItemBackground"
-                app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
-                app:srcCompat="@drawable/ic_baseline_image_search_24"
-                app:strokeWidth="1dp" />
-
-            <TextView
-                android:id="@+id/tvImagen2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Imagen 2"
-                android:textStyle="bold" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imgTratamiento2"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="?attr/selectableItemBackground"
-                app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
-                app:srcCompat="@drawable/ic_baseline_image_search_24"
-                app:strokeWidth="1dp" />
-
-            <ProgressBar
-                android:id="@+id/pb_brand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_wait_a_moment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/wait_a_moment"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/btnGuardar"
-                android:layout_width="158dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="Guardar" />
         </LinearLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tratamientoJunto"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Tratamiento"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contenedorFecha">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombreTratamiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/costoJunto"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Costo"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tratamientoJunto">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCosto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvImagen1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Imagen 1"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/costoJunto" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgTratamiento"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvImagen1"
+            app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
+            app:srcCompat="@drawable/ic_baseline_image_search_24"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:id="@+id/tvImagen2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Imagen 2"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgTratamiento" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgTratamiento2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvImagen2"
+            app:shapeAppearanceOverlay="@style/ImageWithRoundedEdges"
+            app:srcCompat="@drawable/ic_baseline_image_search_24"
+            app:strokeWidth="1dp" />
+
+        <ProgressBar
+            android:id="@+id/pb_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgTratamiento2"
+            tools:visibility="visible" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_wait_a_moment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/wait_a_moment"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_brand"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="158dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Guardar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_wait_a_moment" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
