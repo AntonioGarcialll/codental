@@ -28,6 +28,9 @@ class TratamientosAdapter(
         holder: TratamientosAdapter.TratamientosViewHolder,
         position: Int
     ) {
+        listaTratamientos.sortBy {
+            it.nombreTratamiento
+        }
         val tratamiento = listaTratamientos[position]
         holder.listenerItem(tratamiento)
 

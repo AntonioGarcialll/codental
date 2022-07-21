@@ -95,7 +95,6 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
-        //return tempArrayList
     }
 
     //Menú para la lupa y que realice búsqueda

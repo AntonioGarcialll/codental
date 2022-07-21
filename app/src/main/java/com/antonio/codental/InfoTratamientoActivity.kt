@@ -32,6 +32,8 @@ class InfoTratamientoActivity : AppCompatActivity() {
 
     var abonos: MutableList<Abonos> = mutableListOf()
     var tempArrayList: ArrayList<Abonos> = arrayListOf<Abonos>()
+    var tratamientoRecibido: Tratamiento? = null
+    var tratamientoRecibidoSegundo: Tratamiento? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +44,11 @@ class InfoTratamientoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //Recibimos el tratamiento seleccionado por medio del intent extra
-        val tratamientoRecibido = intent.getSerializableExtra("tratamientoEnviado") as Tratamiento
+
+        tratamientoRecibido = intent.getSerializableExtra("tratamientoEnviado") as Tratamiento
 
         //Obtengo el ID del Tratamiento al que se le dio clic
-        idTratamiento = tratamientoRecibido.idTratamiento
+        idTratamiento = tratamientoRecibido?.idTratamiento
 
         //Obtengo el saldoAtual del tratamiento
 
@@ -53,14 +56,14 @@ class InfoTratamientoActivity : AppCompatActivity() {
         tempArrayList = arrayListOf<Abonos>()
 
         //Barra
-        title = "${tratamientoRecibido.nombreTratamiento}"
+        title = "${tratamientoRecibido?.nombreTratamiento}"
 
         //Llenamos los campos del xml con los datos que llegan
-        binding.tvFecha.text = tratamientoRecibido.fecha
-        binding.tvTratamiento.text = tratamientoRecibido.nombreTratamiento
-        binding.tvCosto.text = tratamientoRecibido.costo
-        foto1 = tratamientoRecibido.fotos //string con el nombre de la foto1
-        foto2 = tratamientoRecibido.fotos2 //string con el nombre de la foto 2
+        binding.tvFecha.text = tratamientoRecibido?.fecha
+        binding.tvTratamiento.text = tratamientoRecibido?.nombreTratamiento
+        binding.tvCosto.text = tratamientoRecibido?.costo
+        foto1 = tratamientoRecibido?.fotos //string con el nombre de la foto1
+        foto2 = tratamientoRecibido?.fotos2 //string con el nombre de la foto 2
         bajarImg(foto1) //se pinta la foto 1 en su imageView
         bajarImg2(foto2) // se pinta la foto 2 en su imageView
         db = FirebaseFirestore.getInstance()
@@ -159,9 +162,8 @@ class InfoTratamientoActivity : AppCompatActivity() {
                 intent.putExtra("idTratamiento", idTratamiento)
                 intent.putExtra("tratamiento", binding.tvTratamiento.text.toString())
                 intent.putExtra("costo", binding.tvCosto.text.toString().toDouble())
-
                 startActivity(intent)
-                finish()
+                //finish()
             }
 
             R.id.edit_item -> {

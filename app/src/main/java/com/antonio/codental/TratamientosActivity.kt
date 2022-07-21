@@ -76,7 +76,7 @@ class TratamientosActivity : AppCompatActivity(), TratamientosInterfaz {
         val intent = Intent(this, InfoTratamientoActivity::class.java)
         intent.putExtra("tratamientoEnviado", tratamiento)
         startActivity(intent)
-        finish()
+        //finish()
     }
 
     fun getTratamientos(idPaciente: String) {

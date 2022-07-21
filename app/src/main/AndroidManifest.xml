@@ -18,6 +18,7 @@
         <activity
             android:name=".InfoTratamientoActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:parentActivityName=".TratamientosActivity" />
         <activity
             android:name=".NuevoTratamientoActivity"
@@ -27,6 +28,7 @@
             android:name=".TratamientosActivity"
             android:exported="true"
             android:label="Tratamientos"
+            android:launchMode="singleTop"
             android:parentActivityName=".InfoPacienteActivity" />
         <activity
             android:name=".NuevoAbonoActivity"
@@ -45,6 +47,7 @@
             android:name=".PreciosActivity"
             android:exported="true"
             android:label="Lista de Precios"
+            android:launchMode="singleTop"
             android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InfoGastoYEgresoActivity"
@@ -59,11 +62,13 @@
             android:name=".GastosYEgresosActivity"
             android:exported="true"
             android:label="Gastos y Egresos"
+            android:launchMode="singleTop"
             android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InfoPacienteActivity"
             android:exported="true"
             android:label="Paciente"
+            android:launchMode="singleTop"
             android:parentActivityName=".PacientesActivity" />
         <activity
             android:name=".NuevoPacienteActivity"
@@ -73,10 +78,12 @@
             android:name=".PacientesActivity"
             android:exported="true"
             android:label="Mis Pacientes"
+            android:launchMode="singleTop"
             android:parentActivityName=".InicioActivity" />
         <activity
             android:name=".InicioActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"

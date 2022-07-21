@@ -24,6 +24,9 @@ class PacienteAdapter(
     }
 
     override fun onBindViewHolder(holder: PacienteAdapter.PacientesViewHolder, position: Int) {
+        listaPacientes.sortBy {
+            it.paciente
+        }
         val paciente = listaPacientes[position]
         holder.listenerItem(paciente)
 

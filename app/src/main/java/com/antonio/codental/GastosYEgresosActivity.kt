@@ -2,7 +2,6 @@ package com.antonio.codental
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,16 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.antonio.codental.databinding.ActivityGastosYegresosBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
+import com.google.firebase.firestore.ktx.toObject
 
 //import kotlinx.android.synthetic.main.activity_pacientes.*
 
 class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
 
     //Declaración de variables
-
     private lateinit var binding: ActivityGastosYegresosBinding
 
     //Variable para la base de datos
@@ -31,15 +28,13 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
     private lateinit var tempArrayList: ArrayList<GastosYEgresos>
 
     //Adapter global
-    private lateinit var adapter: GastosYEgresosAdapter
+    private lateinit var adapterClase: GastosYEgresosAdapter
 
     lateinit var gastosEgresos: MutableList<GastosYEgresos>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //Flecha para volver a atrás
 
         //Cosas de binding
         binding = ActivityGastosYegresosBinding.inflate(layoutInflater)
@@ -54,14 +49,11 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
         //Cosas para dividir los items en pantalla con linea
         val manager = LinearLayoutManager(this)
         val divider = DividerItemDecoration(this, manager.orientation)
-        adapter = GastosYEgresosAdapter(this, getGastosEgresos())
-        binding.lista.layoutManager = LinearLayoutManager(this)
-        binding.lista.adapter = adapter
-        adapter.notifyDataSetChanged()
+        adapterClase = GastosYEgresosAdapter(this, mutableListOf())
         binding.lista.apply {
             setHasFixedSize(true)
             layoutManager = manager
-            adapter = this.adapter
+            adapter = this@GastosYEgresosActivity.adapterClase
             addItemDecoration(divider)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -74,11 +66,6 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
             })
         }
 
-        /*adapter = GastosYEgresosAdapter(this,getGastosEgresos())
-        binding.lista.layoutManager = LinearLayoutManager(this)
-        binding.lista.adapter = adapter
-        adapter.notifyDataSetChanged()*/
-
         //Listener para el floatingActionButton de agregar
         binding.fabAgregarGE.setOnClickListener {
             val intent = Intent(this, NuevoGastoYEgresoActivity::class.java)
@@ -86,40 +73,28 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getGastosEgresos()
+    }
+
     @JvmName("getGastosEgresos1")
-    fun getGastosEgresos(): MutableList<GastosYEgresos> {
+    fun getGastosEgresos() {
 
         db = FirebaseFirestore.getInstance()
         db.collection("gastosEgresos")
             .whereEqualTo("idDoctor", FirebaseAuth.getInstance().currentUser?.let { it.uid })
             .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        gastosEgresos.add(dc.document.toObject(GastosYEgresos::class.java))
-                    }
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val gastoEgreso = document.toObject<GastosYEgresos>()
+                    gastoEgreso.idGastoEgreso = document.id
+                    adapterClase.add(gastoEgreso)
                 }
-
-                //Se llena el temp con los pacientes desordenados alfabéticamente
-                tempArrayList.addAll(gastosEgresos)
-
-                //Ordenación de la binding.lista de pacientes original
-                /*gastosEgresos.sortBy {
-                    it.fecha
-                }*/
-
-                //Ordenación del temporal
-                /*tempArrayList.sortBy {
-                    it.fecha
-                }*/
-
-                adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
-        return tempArrayList
-
     }
 
     //Menú para la lupa y que realice búsqueda
@@ -129,31 +104,13 @@ class GastosYEgresosActivity : AppCompatActivity(), GastoEgresoInterfaz {
         val item = menu?.findItem(R.id.lupa_item)
         val searchView = item?.actionView as SearchView
 
-        //Para abrir teclado en mayúscula la primer letra
-        searchView.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                tempArrayList.clear()
-                val searchText = newText!!.lowercase(Locale.getDefault())
-                if (searchText.isNotEmpty()) {
-                    gastosEgresos.forEach {
-                        if (it.gastoEgreso!!.lowercase(Locale.getDefault())
-                                .contains(searchText)
-                        ) {
-                            tempArrayList.add(it)
-                        }
-                    }
-                    adapter.notifyDataSetChanged()
-                } else {
-                    tempArrayList.clear()
-                    tempArrayList.addAll(gastosEgresos)
-                    adapter.notifyDataSetChanged()
-                }
+                adapterClase.filterListByQuery(newText)
                 return false
             }
         })

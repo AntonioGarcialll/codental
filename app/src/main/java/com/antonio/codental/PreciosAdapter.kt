@@ -8,9 +8,10 @@ import com.antonio.codental.databinding.ItemPreciosBinding
 
 class PreciosAdapter(
     private val listener: PreciosInterfaz,
-    private val listaPrecios: List<Precios>
+    private val listaPrecios: MutableList<Precios>
 ) :
     RecyclerView.Adapter<PreciosAdapter.PreciosViewHolder>() {
+    private val copiedList = mutableListOf<Precios>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreciosViewHolder {
@@ -21,6 +22,9 @@ class PreciosAdapter(
     }
 
     override fun onBindViewHolder(holder: PreciosAdapter.PreciosViewHolder, position: Int) {
+        listaPrecios.sortBy {
+            it.servicio
+        }
         val precio = listaPrecios[position]
         holder.listenerItem(precio)
 
@@ -30,6 +34,41 @@ class PreciosAdapter(
     }
 
     override fun getItemCount(): Int = listaPrecios.size
+
+    fun add(precio: Precios) {
+        if (!listaPrecios.contains(precio) && !copiedList.contains(precio)) {
+            listaPrecios.add(precio)
+            copiedList.add(precio)
+            notifyItemInserted(listaPrecios.lastIndex)
+        } else {
+            update(precio)
+        }
+    }
+
+    private fun update(precio: Precios) {
+        val i = listaPrecios.indexOf(precio)
+        val j = copiedList.indexOf(precio)
+        if (i != -1 && j != -1) {
+            listaPrecios[i] = precio
+            copiedList[j] = precio
+            notifyItemChanged(i)
+        }
+    }
+
+    fun filterListByQuery(query: String?) {
+        if (query.isNullOrBlank()) {
+            listaPrecios.clear()
+            listaPrecios.addAll(copiedList)
+        } else {
+            listaPrecios.clear()
+            copiedList.filter { precio ->
+                query.toString().trim().lowercase() in precio.servicio!!.lowercase()
+            }.also { filteredList ->
+                listaPrecios.addAll(filteredList)
+            }
+        }
+        notifyDataSetChanged()
+    }
 
     inner class PreciosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemPreciosBinding.bind(view)

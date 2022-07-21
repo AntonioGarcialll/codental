@@ -11,7 +11,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.antonio.codental.databinding.ActivityInfoPacienteBinding
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -22,16 +21,14 @@ class InfoPacienteActivity : AppCompatActivity() {
     private val fotos1Tratamientos = arrayListOf<String>()
     private val fotos2Tratamientos = arrayListOf<String>()
     private val idsAbonos = arrayListOf<String>()
-    var objeto: InfoTratamientoActivity = InfoTratamientoActivity()
     private lateinit var binding: ActivityInfoPacienteBinding
     lateinit var miIdPaciente: String
-    private lateinit var db: FirebaseFirestore
-    var midb = FirebaseFirestore.getInstance()
     private lateinit var tempArrayList: ArrayList<Tratamiento>
     lateinit var tratamientoss: MutableList<Tratamiento>
     lateinit var abonos: MutableList<Abonos>
     var veces = 0
     var mensajeBorrar = ""
+    var pacienteRecibido: Paciente? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,21 +43,22 @@ class InfoPacienteActivity : AppCompatActivity() {
         tempArrayList = arrayListOf<Tratamiento>()
 
         //Recibimos el paciente seleccionado por medio del intent extra
-        val pacienteRecibido = intent.getSerializableExtra("contactoEnviado") as Paciente
+        pacienteRecibido = intent.getSerializableExtra("contactoEnviado") as Paciente?
 
         //Le asignamos los valores del paciente seleccionado a los campos correspondientes de esta activity
-        binding.tvFecha.text = pacienteRecibido.fecha
-        binding.tvPaciente.text = pacienteRecibido.paciente
-        binding.tvDoctor.text = pacienteRecibido.doctor
-        miIdPaciente = pacienteRecibido.idPaciente!! //id del paciente al que se le dió clic
+        binding.tvFecha.text = pacienteRecibido?.fecha
+        binding.tvPaciente.text = pacienteRecibido?.paciente
+        binding.tvDoctor.text = pacienteRecibido?.doctor
+        miIdPaciente = pacienteRecibido?.idPaciente!! //id del paciente al que se le dió clic
 
         getTratamientos {
             idsTratamientos.forEach { id ->
                 obtenerAbonos(id)
             }
         }
-
     }
+
+
 
     //Función para sobreescribir el menú por el que ya tiene los iconos de editar, eliminar y abonos
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -185,7 +183,7 @@ class InfoPacienteActivity : AppCompatActivity() {
                 val intent = Intent(this, TratamientosActivity::class.java)
                 intent.putExtra("miIdPaciente", miIdPaciente)
                 startActivity(intent)
-                finish()
+                //finish()
             }
         }
         return super.onOptionsItemSelected(item)

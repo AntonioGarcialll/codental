@@ -84,6 +84,12 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
             })
         }
 
+        if (binding.tvTratamientoPagado.text.equals("Tratamiento Activo") &&
+            !binding.tvSaldoPendiente.text.equals("0.0")
+        ) {
+            binding.tvSaldoPendiente.setTextColor(ContextCompat.getColor(this, R.color.verde))
+            binding.tvTratamientoPagado.setTextColor(ContextCompat.getColor(this, R.color.verde))
+        }
 
         //Listener para el floatingActionButton de agregar
         binding.fabAgregar.setOnClickListener {
@@ -204,7 +210,5 @@ class AbonosActivity : AppCompatActivity(), AbonosInterfaz, AbonosInterfazAux {
                     }
                 }
         }
-
     }
-
 }
