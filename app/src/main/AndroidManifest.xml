@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Codental">
         <activity
+            android:name=".Codigo"
+            android:exported="false" />
+        <activity
             android:name=".InfoPrecioActivity"
             android:exported="true"
             android:label="Servicio Y Precio"

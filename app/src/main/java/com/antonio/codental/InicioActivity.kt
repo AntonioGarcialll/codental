@@ -30,10 +30,12 @@ class InicioActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
-                    idDoctor = user.uid
-                    nombreDoctor = user.displayName
-                    //supportActionBar?.title = "Bienvenido Dr. " + nombreDoctor
-                    binding.tvBienvenida.text = "Bienvenido Dr. " + nombreDoctor
+                    val i = Intent(
+                        applicationContext,
+                        Codigo::class.java
+                    )
+                    startActivity(i)
+                    finish()
                 }
             } else {
                 if (response == null) {

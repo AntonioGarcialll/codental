@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.75" />
 
 
     <com.google.android.material.card.MaterialCardView
@@ -53,7 +53,7 @@
                     android:id="@+id/tVRegistrarse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Registrarse"
+                    android:text="Iniciar Sesión"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                     app:layout_constraintBottom_toTopOf="@id/btn_email"
@@ -64,12 +64,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_email"
                     style="@style/FirebaseUI.Button.AccountChooser.EmailButton"
+                    android:backgroundTint="@color/blue500dark"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/fui_sign_in_with_email"
+                    android:text="Ingresar / Crear Cuenta"
                     android:textAlignment="center"
                     app:cornerRadius="@dimen/margin_max"
-                    app:layout_constraintBottom_toTopOf="@id/guideLineCenter"
+                    app:layout_constraintTop_toBottomOf="@id/guideLineCenter"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -83,20 +84,20 @@
                     app:cornerRadius="@dimen/margin_max"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/guideLineCenter" />
-
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toBottomOf="@id/btn_email" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvTextoCrearCuenta"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="¿No tiene cuenta? Elija entre Acceder con Google o con su correo para crear una."
+                    android:text="¿No tiene cuenta? De clic a 'Acceder con el correo electrónico' para crear una."
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_google" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_email" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
