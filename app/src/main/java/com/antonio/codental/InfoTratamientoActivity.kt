@@ -252,7 +252,9 @@ class InfoTratamientoActivity : AppCompatActivity() {
 
                         }
                     }
-                    setNegativeButton("Cancelar", null)
+                    setNegativeButton("Cancelar") { _: DialogInterface, _: Int ->
+                        veces = 1
+                    }
                 }.show()
             }
         }

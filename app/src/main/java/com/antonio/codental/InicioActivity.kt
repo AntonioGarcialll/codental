@@ -15,9 +15,14 @@ import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class InicioActivity : AppCompatActivity() {
 
+    var arrayListFotos = arrayListOf<FotosABorrar>()
     private var idDoctor: String? = null
     private var nombreDoctor: String? = null
     private lateinit var binding: ActivityInicioBinding
@@ -102,6 +107,18 @@ class InicioActivity : AppCompatActivity() {
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Borro las fotos que se quedaron en Storage y los documentos de Firestore
+        borarImagenesDeStorage {
+            arrayListFotos.forEach {
+                //Se borran las fotos de Storage
+                borrarImg(it.foto1)
+                borrarImg(it.foto2)
+
+                //Se borra el documento en Firestore
+                borrarDocumentosDefotos(it.idFotosABorrar.toString())
+            }
+        }
+
         setupAuth()
 
         //Enlazo botón de Registro Pacientes
@@ -168,5 +185,50 @@ class InicioActivity : AppCompatActivity() {
                         .show()
                 }
             }.setNegativeButton(getString(R.string.cancel), null).show()
+    }
+
+    fun borarImagenesDeStorage(isFinish: () -> Unit = {}) {
+        val db = Firebase.firestore
+        db.collection("fotosABorrar")
+            .get()
+            .addOnSuccessListener { result ->
+                //Toast.makeText(this, "sí entré", Toast.LENGTH_SHORT).show()
+                for (document in result) {
+                    val foto = document.toObject<FotosABorrar>()
+                    foto.idFotosABorrar = document.id
+                    arrayListFotos.add(foto)
+                }
+                isFinish()
+                /*Toast.makeText(
+                    this,
+                    "hay " + arrayListFotos.size + " paquetes de fotos",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+            }
+            .addOnFailureListener { exception ->
+                isFinish()
+                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    fun borrarDocumentosDefotos(idDocumento: String) {
+        val db = Firebase.firestore
+        db.collection("fotosABorrar").document(idDocumento)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Borré 1 documento", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {}
+    }
+
+    fun borrarImg(nombreImagen: String?) {
+        val imageName = nombreImagen
+        val storageRef =
+            FirebaseStorage.getInstance().reference.child("tratamientosfolder/$imageName")
+        storageRef.delete().addOnSuccessListener {
+            //Toast.makeText(this, "Foto eliminada con éxito", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            //Toast.makeText(this, "Falló", Toast.LENGTH_SHORT).show()
+        }
     }
 }
