@@ -12,8 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.antonio.codental.databinding.ActivityInfoTratamientoBinding
 import com.github.chrisbanes.photoview.PhotoView
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
@@ -24,8 +25,9 @@ class InfoTratamientoActivity : AppCompatActivity() {
     var idTratamiento: String? = null
     var foto1: String? = null
     var foto2: String? = null
-    var veces = 1
+    var veces = 0
     var mensajeBorrar = ""
+    private val idsAbonos = arrayListOf<String>()
 
     //Variable para la base de datos
     private lateinit var db: FirebaseFirestore
@@ -75,6 +77,8 @@ class InfoTratamientoActivity : AppCompatActivity() {
         binding.imgTratamiento2.setOnClickListener {
             ponerImagenZoom(foto2)
         }
+
+        obtenerAbonos(idTratamiento!!)
 
 
         /*//Se pinta la imagen 1
@@ -153,6 +157,7 @@ class InfoTratamientoActivity : AppCompatActivity() {
         }
     }
 
+
     //Switch para hacer acciones al dar clic a los iconos de editar, eliminar o abonos.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -181,10 +186,10 @@ class InfoTratamientoActivity : AppCompatActivity() {
             }
 
             R.id.delete_item -> {
-                if (veces == 1) {
+                if (veces == 0) {
                     mensajeBorrar =
                         "Está a punto de eliminar un tratamiento.\nPor seguridad, vuelva a dar clic al icono de eliminar por favor."
-                    veces++
+
                 } else {
                     mensajeBorrar =
                         "¿Está seguro que desea eliminar este tratamiento?\nSe borrarán todos sus datos, entre ellos sus abonos de manera permanente"
@@ -194,26 +199,20 @@ class InfoTratamientoActivity : AppCompatActivity() {
                     setTitle("Eliminar Tratamiento")
                     setMessage(mensajeBorrar)
                     setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
-                        if (obtenerAbonos(idTratamiento!!).size > 0) {
-
-                            ////Elimino los abonos del tratamiento seleccionado
-                            for (i in 0 until obtenerAbonos(idTratamiento!!).size) {
-                                var idAbono = obtenerAbonos(idTratamiento!!).get(i).miIdAbono
+                        if (veces > 0) {
+                            val db = Firebase.firestore
+                            idsAbonos.forEach { idAbono ->
                                 db.collection("tratamientos").document(idTratamiento!!)
-                                    .collection("abonos").document(idAbono!!)
+                                    .collection("abonos").document(idAbono)
                                     .delete()
                                     .addOnSuccessListener {
-                                        idAbono = ""
+
                                     }.addOnFailureListener {
 
                                     }
                             }
-
-                            //Elimino las fotos de los tratamientos
                             borrarImg(foto1)
                             borrarImg(foto2)
-
-                            //Elimino el tratamiento
                             db.collection("tratamientos").document(idTratamiento!!)
                                 .delete()
                                 .addOnSuccessListener {
@@ -222,38 +221,23 @@ class InfoTratamientoActivity : AppCompatActivity() {
                                         "Tratamiento Eliminado Correctamente",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    //Se cierra actividad y regresa a la activity main
                                     val i =
                                         Intent(applicationContext, PacientesActivity::class.java)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    i.putExtra("EXIT", true)
                                     startActivity(i)
                                     finish()
                                 }.addOnFailureListener {
                                     Toast.makeText(
                                         this@InfoTratamientoActivity,
-                                        "Ocurrió un error al eliminar el tratamiento",
+                                        "Ocurriò un error al eliminar el tratamiento",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    //Se cierra actividad y regresa a la activity main
-                                    val i =
-                                        Intent(applicationContext, PacientesActivity::class.java)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    i.putExtra("EXIT", true)
-                                    startActivity(i)
-                                    finish()
                                 }
-
                         } else {
-
+                            veces++
                         }
                     }
                     setNegativeButton("Cancelar") { _: DialogInterface, _: Int ->
-                        veces = 1
+                        veces = 0
                     }
                 }.show()
             }
@@ -261,29 +245,19 @@ class InfoTratamientoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun obtenerAbonos(idTratatamiento: String): ArrayList<Abonos> {
-        var arreglo = emptyArray<String?>()
-        var db: FirebaseFirestore
-        db = FirebaseFirestore.getInstance()
+    fun obtenerAbonos(idTratatamiento: String) {
+        val db = Firebase.firestore
         db.collection("tratamientos").document(idTratatamiento).collection("abonos")
             .get()
-            .addOnSuccessListener { value ->
-                for (dc: DocumentChange in value?.documentChanges!!) {
-                    if (dc.type == DocumentChange.Type.ADDED) {
-                        abonos.add(dc.document.toObject(Abonos::class.java))
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    document.getString("miIdAbono")?.let { id ->
+                        idsAbonos.add(id)
                     }
                 }
-
-                //Se llena el temp con los pacientes desordenados alfabéticamente
-                tempArrayList.addAll(abonos)
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(
-                    this@InfoTratamientoActivity,
-                    "Algó ocurrió",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
-        return tempArrayList
     }
 }
