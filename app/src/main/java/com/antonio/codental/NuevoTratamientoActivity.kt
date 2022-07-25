@@ -450,10 +450,6 @@ class NuevoTratamientoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        //super.onBackPressed()
-    }
-
     private fun enableUI(enable: Boolean) {
         with(binding) {
             btnFecha.isEnabled = enable

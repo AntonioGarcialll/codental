@@ -83,7 +83,7 @@ class Codigo : AppCompatActivity() {
                         .addOnSuccessListener { documentReference ->
                             Toast.makeText(
                                 this,
-                                "Doctor Agregado Correctamente",
+                                "Cuenta Creada Correctamente",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -137,18 +137,12 @@ class Codigo : AppCompatActivity() {
         db.collection("doctores")
             .get()
             .addOnSuccessListener { result ->
-                Toast.makeText(this, "sí entré", Toast.LENGTH_SHORT).show()
                 for (document in result) {
                     val doctor = document.toObject<Doctores>()
                     doctor.miIdDoctor = document.id
                     arrayListDoctores.add(doctor)
                 }
                 isFinish()
-                Toast.makeText(
-                    this,
-                    "hay " + arrayListDoctores.size + " doctores",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
             .addOnFailureListener { exception ->
                 isFinish()

@@ -171,7 +171,6 @@ class InicioActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.sign_off))
             .setMessage(getString(R.string.are_you_sure_to_take_this_action))
-            .setIcon(R.drawable.ic_baseline_exit_to_app_24)
             .setPositiveButton(getString(R.string.sign_off)) { _, _ ->
                 AuthUI.getInstance().signOut(this).addOnSuccessListener {
                     showLoadComponents(View.VISIBLE, View.GONE)
@@ -199,15 +198,10 @@ class InicioActivity : AppCompatActivity() {
                     arrayListFotos.add(foto)
                 }
                 isFinish()
-                /*Toast.makeText(
-                    this,
-                    "hay " + arrayListFotos.size + " paquetes de fotos",
-                    Toast.LENGTH_SHORT
-                ).show()*/
             }
             .addOnFailureListener { exception ->
                 isFinish()
-                Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
+
             }
     }
 
