@@ -23,6 +23,7 @@ class Codigo : AppCompatActivity() {
     var mensaje = ""
     var bandera = false
     var indice = 0
+    var salir = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,19 +46,26 @@ class Codigo : AppCompatActivity() {
             } else {
                 binding.btnGuardar.text = "Ingresar"
                 var nombreDoctor = FirebaseAuth.getInstance().currentUser?.let { it.displayName }
-                for (i in 0 until arrayListDoctores.size) {
-                    if (FirebaseAuth.getInstance().currentUser?.let { it.uid }
-                            .equals(arrayListDoctores.get(i).miIdDoctor)) {
-                        mensaje =
-                            "!Hola Dr. " + nombreDoctor + "!\nIngrese su código de seguridad para continuar por favor."
-                        binding.tvBienvenida.text = mensaje
-                        bandera = false
-                        indice = i
-                    } else {
+                while (salir == false) {
+                    //Ya hay doctores en la bdd y quiere crear una nueva cuenta
+                    if (indice == arrayListDoctores.size) {
+                        binding.btnGuardar.text = "Guardar"
                         mensaje =
                             "Para continuar, debe crear un código de seguridad de 4 dígitos por favor."
                         binding.tvBienvenida.text = mensaje
                         bandera = true
+                        salir = true
+                    } else {
+                        if (FirebaseAuth.getInstance().currentUser?.let { it.uid }
+                                .equals(arrayListDoctores.get(indice).miIdDoctor)) {
+                            mensaje =
+                                "!Hola Dr. " + nombreDoctor + "!\nIngrese su código de seguridad para continuar por favor."
+                            binding.tvBienvenida.text = mensaje
+                            bandera = false
+                            salir = true
+                        } else {
+                            indice++
+                        }
                     }
                 }
             }

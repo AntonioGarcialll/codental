@@ -10,6 +10,13 @@
     tools:visibility="visible">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +36,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.85" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideLineVertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ProgressBar
         android:id="@+id/pb_brand"
@@ -52,6 +69,7 @@
         tools:visibility="visible" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/margin_max"
@@ -83,18 +101,165 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/dentista" />
 
+                <ImageView
+                    android:id="@+id/imageViewCodSeg"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/candado" />
+
                 <TextView
                     android:id="@+id/tvBienvenida"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:hint="Cargando, espere por favor..."
                     android:gravity="center"
-                    android:text="Bienvenido"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+                <TextView
+                    android:id="@+id/tvNuevoNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Actualizar Nombre"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/nuevoNombre"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+                <TextView
+                    android:id="@+id/tvNuevoCodSeg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Actualizar Código de Seguridad"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/nuevoCodSeg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewCodSeg" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nuevoNombre"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Nuevo Nombre"
+                    android:visibility="invisible"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toTopOf="@id/btnGuardar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNuevoNombre">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNuevoNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:visibility="invisible" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nuevoCodSeg"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Nuevo Código de Seguridad"
+                    android:visibility="invisible"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toTopOf="@id/btnGuardarCodSeg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNuevoCodSeg">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNuevoCodSeg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:maxLength="4"
+                        android:textAlignment="center"
+                        android:visibility="invisible" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnGuardarCodSeg"
+                    android:layout_width="158dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Actualizar"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/tvRegresarCodSeg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nuevoCodSeg" />
+
+                <TextView
+                    android:id="@+id/tvRegresarCodSeg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Cancelar"
+                    android:textColor="@color/rojo"
+                    android:textSize="18dp"
+                    android:textStyle="italic"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnGuardarCodSeg" />
+
+                <Button
+                    android:id="@+id/btnGuardar"
+                    android:layout_width="158dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Actualizar"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/tvRegresar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nuevoNombre" />
+
+                <TextView
+                    android:id="@+id/tvRegresar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Cancelar"
+                    android:textColor="@color/rojo"
+                    android:textSize="18dp"
+
+                    android:textStyle="italic"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnGuardar" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_Pacientes"

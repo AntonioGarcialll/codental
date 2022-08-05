@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/exit"
-        android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="Cerrar Sesión"
+        android:id="@+id/menu_options"
+        android:icon="@drawable/ic_baseline_menu_24"
+        android:title="Opciones"
         app:showAsAction="always" />
 </menu>
