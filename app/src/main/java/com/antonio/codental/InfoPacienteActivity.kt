@@ -29,6 +29,7 @@ class InfoPacienteActivity : AppCompatActivity() {
     var veces = 0
     var mensajeBorrar = ""
     var pacienteRecibido: Paciente? = null
+    var nombreDoctor = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +45,14 @@ class InfoPacienteActivity : AppCompatActivity() {
 
         //Recibimos el paciente seleccionado por medio del intent extra
         pacienteRecibido = intent.getSerializableExtra("contactoEnviado") as Paciente?
+        nombreDoctor = intent?.getStringExtra("nombreDoctor").toString()
 
         //Le asignamos los valores del paciente seleccionado a los campos correspondientes de esta activity
         binding.tvFecha.text = pacienteRecibido?.fecha
         binding.tvPaciente.text = pacienteRecibido?.paciente
-        binding.tvDoctor.text = pacienteRecibido?.doctor
+        //binding.tvDoctor.text = pacienteRecibido?.doctor
         miIdPaciente = pacienteRecibido?.idPaciente!! //id del paciente al que se le dió clic
+        binding.tvDoctor.text = nombreDoctor
 
         getTratamientos {
             idsTratamientos.forEach { id ->

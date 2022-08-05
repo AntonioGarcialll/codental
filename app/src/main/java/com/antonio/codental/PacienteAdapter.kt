@@ -8,10 +8,10 @@ import com.antonio.codental.databinding.ItemPacienteBinding
 
 class PacienteAdapter(
     private val listener: PacienteInterfaz,
-    private val listaPacientes: MutableList<Paciente>
+    private var listaPacientes: MutableList<Paciente>
 ) :
     RecyclerView.Adapter<PacienteAdapter.PacientesViewHolder>() {
-    private val copiedList = mutableListOf<Paciente>()
+    private var copiedList = mutableListOf<Paciente>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

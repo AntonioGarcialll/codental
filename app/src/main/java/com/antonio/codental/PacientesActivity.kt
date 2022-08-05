@@ -31,6 +31,8 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
 
     lateinit var pacientes: MutableList<Paciente>
 
+    var nombreDoctor = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,9 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         //Cosas de binding
         binding = ActivityPacientesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Recibimos el nombre actualizado del doctor
+        nombreDoctor = intent?.getStringExtra("nombreDoctor").toString()
 
         //Inicializa array para lupa
         tempArrayList = arrayListOf<Paciente>()
@@ -68,6 +73,7 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         //Listener para el floatingActionButton de agregar
         binding.fabAgregar.setOnClickListener {
             val intent = Intent(this, NuevoPacienteActivity::class.java)
+            intent.putExtra("nombreDoctor", nombreDoctor)
             startActivity(intent)
         }
 
@@ -77,6 +83,7 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         super.onResume()
         getPacientes()
     }
+
 
     @JvmName("getPacientes1")
     fun getPacientes() {
@@ -122,7 +129,9 @@ class PacientesActivity : AppCompatActivity(), PacienteInterfaz {
         //Le pasamos los datos del contacto a la ContactoActivity
         val intent = Intent(this, InfoPacienteActivity::class.java)
         intent.putExtra("contactoEnviado", paciente)
+        intent.putExtra("nombreDoctor", nombreDoctor)
         startActivity(intent)
+
     }
 
 }

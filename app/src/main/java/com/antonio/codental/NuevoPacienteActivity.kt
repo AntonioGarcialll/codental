@@ -16,6 +16,8 @@ import java.util.*
 class NuevoPacienteActivity : AppCompatActivity() {
 
     //Declaración de Variables
+    var nombreDoctor = ""
+    var arrayListDoctores = arrayListOf<Doctores>()
     lateinit var btnFecha: Button
     lateinit var tvFecha: TextView
     lateinit var etPaciente: EditText
@@ -35,6 +37,8 @@ class NuevoPacienteActivity : AppCompatActivity() {
         var pacienteObtenido = objIntent.getStringExtra("tvPaciente")
         var actualizarObtenido = objIntent.getStringExtra("actualizar")
         var miIdPacienteObtenido = objIntent.getStringExtra("miIdPaciente")
+        var nombreDoctorRecibido = objIntent.getStringExtra("tvDoctor")
+        nombreDoctor = objIntent.getStringExtra("nombreDoctor").toString()
 
         //Inicializo variables y botones
         tvFecha = findViewById(R.id.tvFecha)
@@ -42,7 +46,10 @@ class NuevoPacienteActivity : AppCompatActivity() {
         etDoctor = findViewById(R.id.etDoctor)
         btnFecha = findViewById(R.id.btnFecha)
         btnGuardar = findViewById(R.id.btnGuardar)
-        FirebaseAuth.getInstance().currentUser?.let { etDoctor.setText("Dr. " + it.displayName) }
+
+        //Seteo el nombre del doctor
+        //FirebaseAuth.getInstance().currentUser?.let { etDoctor.setText("Dr. " + it.displayName) }
+        etDoctor.setText(nombreDoctor)
 
 
         if (actualizarObtenido == "actualizame") {
@@ -50,6 +57,7 @@ class NuevoPacienteActivity : AppCompatActivity() {
             //Asigna los valores a las cajas de texto para que puedan ser modificadas
             tvFecha.text = fechaObtenido
             etPaciente.setText(pacienteObtenido)
+            etDoctor.setText(nombreDoctorRecibido)
             //etTratamiento.setText(tratamientoObtenido)
             //etCosto.setText(costoObtenido)
         } else {
@@ -130,6 +138,7 @@ class NuevoPacienteActivity : AppCompatActivity() {
             }
         }
     }
+
 
     //Función para mostrar la fecha en el textView de fecha
     private fun mostrarFecha(year: Int, month: Int, day: Int) {

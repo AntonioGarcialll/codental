@@ -133,8 +133,7 @@ class InicioActivity : AppCompatActivity() {
         //Enlazo botón de Registro Pacientes
         binding.btnPacientes.setOnClickListener {
             val intent = Intent(this, PacientesActivity::class.java)
-            /*intent.putExtra("idDoctor", idDoctor)
-            intent.putExtra("nombreDoctor", nombreDoctor)*/
+            intent.putExtra("nombreDoctor", nombreDoctor)
             startActivity(intent)
         }
 
