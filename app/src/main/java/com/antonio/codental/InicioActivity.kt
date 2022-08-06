@@ -433,7 +433,7 @@ class InicioActivity : AppCompatActivity() {
         db.collection("fotosABorrar").document(idDocumento)
             .delete()
             .addOnSuccessListener {
-                Toast.makeText(this, "Borré 1 documento", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "Borré 1 documento", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {}
     }
