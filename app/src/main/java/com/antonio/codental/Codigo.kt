@@ -124,6 +124,33 @@ class Codigo : AppCompatActivity() {
                 }
             }
         }
+
+        binding.tvOlvideCodigo.setOnClickListener {
+            apagarInicioParaCodigoUI()
+        }
+
+        binding.btnGuardarNuevoCodigo.setOnClickListener {
+            if (binding.etNuevoCodigo.text.toString().length < 4 || binding.etCodigo.text.toString().length > 4) {
+                Toast.makeText(this, "El código debe ser de 4 dígitos", Toast.LENGTH_SHORT).show()
+            } else {
+                val db = Firebase.firestore
+                db.collection("doctores")
+                    .document(FirebaseAuth.getInstance().currentUser?.let { it.uid }!!).update(
+                        "codigoSeguridad", binding.etNuevoCodigo.text.toString()
+                    )
+                Toast.makeText(
+                    this,
+                    "Código de seguridad actualizado correctamente",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val i = Intent(
+                    applicationContext,
+                    InicioActivity::class.java
+                )        // Specify any activity here e.g. home or splash or login etc
+                startActivity(i)
+                finish()
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -156,5 +183,24 @@ class Codigo : AppCompatActivity() {
                 isFinish()
                 Toast.makeText(this, "Algó ocurrió", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun apagarInicioParaCodigoUI() {
+        with(binding) {
+            //Apagamos
+            tvBienvenida.visibility = View.GONE
+            codigoJunto.visibility = View.GONE
+            btnGuardar.visibility = View.GONE
+            tvOlvideCodigo.visibility = View.GONE
+            imageView.visibility = View.GONE
+
+            //Prendemos
+            tvIngreseNuevoCodigo.visibility = View.VISIBLE
+            nuevoCodigoJunto.visibility = View.VISIBLE
+            etNuevoCodigo.visibility = View.VISIBLE
+            btnGuardarNuevoCodigo.visibility = View.VISIBLE
+            imageViewCodigo.visibility = View.VISIBLE
+
+        }
     }
 }

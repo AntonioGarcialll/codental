@@ -97,7 +97,6 @@ class NuevoPacienteActivity : AppCompatActivity() {
                     startActivity(i)
                     finish()
                 } else {
-                    //No se le dió clic al botón del lápiz para editar, o sea que se requiere agregar un nuevo paciente.
                     //Se guarda un nuevo paciente en la base de datos
                     val data = hashMapOf(
                         "fecha" to tvFecha.text.toString(),
@@ -106,7 +105,6 @@ class NuevoPacienteActivity : AppCompatActivity() {
                         "idPaciente" to "a",
                         "idDoctor" to FirebaseAuth.getInstance().currentUser?.let { it.uid }
                     )
-
                     db.collection("pacientes").add(data)
                         .addOnSuccessListener { documentReference ->
 

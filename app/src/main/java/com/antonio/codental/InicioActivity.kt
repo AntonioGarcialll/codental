@@ -339,6 +339,7 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
+
     private fun prenderInicioParaCodigoUI() {
         with(binding) {
             //Apagamos
@@ -357,6 +358,8 @@ class InicioActivity : AppCompatActivity() {
             imageView.visibility = View.VISIBLE
             mainMenu?.findItem(R.id.menu_options)?.isVisible = true
         }
+
+
     }
 
     override fun onResume() {
@@ -448,6 +451,5 @@ class InicioActivity : AppCompatActivity() {
             //Toast.makeText(this, "Falló", Toast.LENGTH_SHORT).show()
         }
     }
-
 
 }

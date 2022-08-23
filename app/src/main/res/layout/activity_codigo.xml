@@ -55,6 +55,21 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/candado" />
 
+                <ImageView
+                    android:id="@+id/imageViewCodigo"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/tvIngreseNuevoCodigo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/candado" />
+
                 <TextView
                     android:id="@+id/tvBienvenida"
                     android:layout_width="match_parent"
@@ -69,6 +84,23 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+                <TextView
+                    android:id="@+id/tvIngreseNuevoCodigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="Ingrese el nuevo código de seguridad"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@id/nuevoCodigoJunto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewCodigo" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/codigoJunto"
@@ -95,16 +127,72 @@
                         android:textAlignment="center" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nuevoCodigoJunto"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:hint="****"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toTopOf="@id/btnGuardarNuevoCodigo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvIngreseNuevoCodigo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNuevoCodigo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberPassword"
+                        android:maxLength="4"
+                        android:textAlignment="center"
+                        android:visibility="invisible" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btnGuardar"
                     android:layout_width="158dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tvOlvideCodigo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/codigoJunto" />
+
+                <Button
+                    android:id="@+id/btnGuardarNuevoCodigo"
+                    android:layout_width="158dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="Actualizar"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nuevoCodigoJunto" />
+
+                <TextView
+                    android:id="@+id/tvOlvideCodigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="Olvidé mi código"
+                    android:textColor="@color/rojo"
+                    android:textSize="16dp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnGuardar" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
